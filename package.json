@@ -10,6 +10,8 @@
   "description": "Converts 3mle to ms2mml",
   "private": true,
   "dependencies": {
+    "fast-xml-parser": "^3.12.7",
+    "he": "^1.2.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-scripts": "2.1.1"

@@ -14,7 +14,7 @@ class App extends Component {
           <img src={bg} className="App-bg" alt="bg" />
           <h1 style={{ zIndex: 3 }}>3MLE to MS2MML converter</h1>
         </header>
-        <Form />
+        <Form className="App-form" />
       </div>
     );
   }

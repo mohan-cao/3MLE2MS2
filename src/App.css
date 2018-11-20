@@ -18,11 +18,8 @@
 }
 
 .App-header {
-  padding-top: 5vh;
-  /* background-image: url('./bg2.jpg');
-  background-size: cover;
-  background-position: center center; */
-  min-height: 20vh;
+  padding-top: 20px;
+  height: 20vh;
   display: flex;
   position: relative;
   overflow: hidden;
@@ -31,6 +28,10 @@
   justify-content: center;
   font-size: calc(10px + 1.5vmin);
   color: rgb(255, 255, 255);
+  box-sizing: border-box;
+}
+.App-form {
+  height: 80vh;
 }
 
 .App-link {

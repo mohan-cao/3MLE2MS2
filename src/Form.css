@@ -1,0 +1,76 @@
+.Form-div {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-between;
+  color: black;
+}
+
+.Form-leftDiv {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  padding: 20px;
+  font-size: 2em;
+}
+.Form-leftDiv input[type=file] {
+  display: none;
+}
+
+.Form-leftDiv .buttonDiv {
+  display: flex;
+  justify-content: space-between;
+}
+.Form-leftDiv .label {
+  cursor: pointer;
+  font-size: 1em;
+  background: rgb(255, 215, 155);
+  color: rgb(235, 77, 3);
+  font-weight: bold;
+  padding: 5px 20px;
+  flex: 1;
+  transition: all .4s;
+  border: 0;
+  outline: 0;
+  text-decoration: none;
+}
+.Form-leftDiv .label:hover {
+  background: rgb(202, 54, 9);
+  color: rgb(255, 255, 250);
+  transition: all .4s;
+}
+.Form-leftDiv .label:disabled {
+  cursor: default;
+  background: rgb(123, 139, 155);
+  color: rgb(203, 209, 208);
+  transition: all .4s;
+}
+.Form-leftDiv .arrowDown {
+  margin: 0;
+  padding: 0;
+  font-size: 2em;
+  color: rgb(243, 63, 63);
+  font-weight: bolder;
+  transform: scaleX(1.5);
+  transform-origin: center center;
+}
+
+.Form-rightDiv {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px 20px 20px;
+  font-size: 1.5em;
+}
+.Form-rightDiv h1 {
+  text-align: left;
+  padding: 0; margin: 0;
+  color: rgb(155,155,155);
+  font-weight: 100;
+}
+.Form-textResult {
+  flex: 1;
+}

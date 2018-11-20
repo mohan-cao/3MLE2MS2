@@ -1,0 +1,44 @@
+{
+  "ms2": {
+    "melody": {
+      "__cdata": "#text"
+    },
+    "chord": [
+      {
+        "@_index": "1",
+        "__cdata": "#text"
+      },
+      {
+        "@_index": "2",
+        "__cdata": "#text"
+      },
+      {
+        "@_index": "3",
+        "__cdata": "#text"
+      },
+      {
+        "@_index": "4",
+        "__cdata": "#text"
+      },{
+        "@_index": "5",
+        "__cdata": "#text"
+      },
+      {
+        "@_index": "6",
+        "__cdata": "#text"
+      },
+      {
+        "@_index": "7",
+        "__cdata": "#text"
+      },
+      {
+        "@_index": "8",
+        "__cdata": "#text"
+      },
+      {
+        "@_index": "9",
+        "__cdata": "#text"
+      }
+    ]
+  }
+}
