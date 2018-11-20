@@ -1,3 +1,2 @@
 #!/bin/bash
-rm -rf docs
-mv build docs
+rm -rf ./docs && mv ./build docs

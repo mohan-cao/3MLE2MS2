@@ -24,7 +24,7 @@ function findAllMML(obj, json) {
     if (typeof obj[iKey] === 'object' && obj[iKey] !== null) {
       arr.push(...findAllMML(obj[iKey], json[iKey]));
     } else if (typeof obj[iKey] === 'string') {
-      let hasKey = json.hasOwnProperty(iKey);
+      let hasKey = json.hasOwnProperty(iKey) && json[iKey].hasOwnProperty(obj[iKey]);
       if (hasKey) arr.push(json[iKey][obj[iKey]].trim());
     }
   }
