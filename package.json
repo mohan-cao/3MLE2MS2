@@ -1,0 +1,37 @@
+{
+  "name": "3mle-ms2mml-app",
+  "version": "0.1.0",
+  "author": "Mohan Cao",
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/mohan-cao/3MLE2MS2/issues"
+  },
+  "homepage": "https://github.com/mohan-cao/3MLE2MS2#readme",
+  "description": "Converts 3mle to ms2mml",
+  "private": true,
+  "dependencies": {
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-scripts": "2.1.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "keywords": [
+    "3MLE",
+    "MapleStory",
+    "MML"
+  ]
+}

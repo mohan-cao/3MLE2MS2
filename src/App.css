@@ -1,0 +1,43 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-wobble infinite alternate-reverse 1s ease-in-out;
+  height: 12vmin;
+  padding-right: 10px;
+}
+
+.App-bg {
+  display: block;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+  transform: scaleX(1.01) scaleY(1.01);
+  filter: blur(5px);
+}
+
+.App-header {
+  padding-top: 5vh;
+  /* background-image: url('./bg2.jpg');
+  background-size: cover;
+  background-position: center center; */
+  min-height: 20vh;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 1.5vmin);
+  color: rgb(255, 255, 255);
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-wobble {
+  from { transform: translate(0, 0px) scaleY(1); }
+  to { transform: translate(0, -5px) scaleY(1.05);}
+}
