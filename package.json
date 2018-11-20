@@ -6,7 +6,7 @@
   "bugs": {
     "url": "https://github.com/mohan-cao/3MLE2MS2/issues"
   },
-  "homepage": "https://github.com/mohan-cao/3MLE2MS2#readme",
+  "homepage": "https://mohan-cao.github.com/3MLE2MS2",
   "description": "Converts 3mle to ms2mml",
   "private": true,
   "dependencies": {
@@ -19,6 +19,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "postbuild": "bash ./postbuild.sh",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
