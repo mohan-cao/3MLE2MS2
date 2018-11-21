@@ -29,7 +29,6 @@
   font-size: 1em;
   background: rgb(255, 215, 155);
   color: rgb(235, 77, 3);
-  font-weight: bold;
   padding: 5px 20px;
   flex: 1;
   transition: all .4s;
@@ -52,9 +51,9 @@
   margin: 0;
   padding: 0;
   font-size: 2em;
-  color: rgb(243, 63, 63);
+  color: rgb(255, 223, 205);
   font-weight: bolder;
-  transform: scaleX(1.5);
+  transform: scaleX(0.7);
   transform-origin: center center;
 }
 
