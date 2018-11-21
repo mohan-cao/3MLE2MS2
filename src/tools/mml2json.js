@@ -7,7 +7,15 @@ const positionAfterChannelText = (matchedStart) => {
   return matchedStart.index + textLength;
 }
 
-const extractMMLFromText = (text) => {
+const filterCommentsAndCollapse = (text) => {
+  return text
+  .split('\n')
+  .filter(x => !x.trim().startsWith('//'))
+  .map(x => x.replace(/(\/\*.*\*\/|\s)*/g,'').trim())
+  .join('');
+}
+
+export const extractMMLFrom3MLE = (text) => {
   let matched = [];
   let mmlTextArr = [];
   let matcher = /\[Channel[0-9]+\]/g;
@@ -23,10 +31,9 @@ const extractMMLFromText = (text) => {
   // extract the text
   for (let i = 0; i < matched.length-1; i++) {
     mmlTextArr.push(
-      text.slice(
-        positionAfterChannelText(matched[i]),
-        matched[i+1].index
-      ).replace(/\s/g, '')
+      filterCommentsAndCollapse(
+        text.slice(positionAfterChannelText(matched[i]), matched[i+1].index)
+      )
     )
   }
   return mmlTextArr;
@@ -47,11 +54,11 @@ function deepValueSingleReplace(obj, value, replace) {
 }
 
 export default function convert3MLEToJSON(text) {
-  const newTemplate = JSON.parse(JSON.stringify(ms2mmlTemplate));
-  let textArr = extractMMLFromText(text);
+  let newTemplate = JSON.parse(JSON.stringify(ms2mmlTemplate));
+  let textArr = extractMMLFrom3MLE(text);
   for (let i = 0; i < maxChannels; i++) {
     if (i < textArr.length) deepValueSingleReplace(newTemplate, "#text", textArr[i]);
     else deepValueSingleReplace(newTemplate, "#text", undefined);
   }
-  return newTemplate;
+  return {result: newTemplate, length: textArr.map(x => x.length).reduce((a,b) => a+b, 0)};
 }

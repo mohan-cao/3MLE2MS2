@@ -6,17 +6,17 @@ import { getHandlerBuilder, getMMLExtension, allValidMMLs } from './tools/exthel
 import convert3MLEToJSON from './tools/mml2json';
 import { json2fullxml } from './tools/json2xml'
 import xml2json from './tools/xml2json'
-import ms2JSONToMMLConverter from './tools/ms2reverse';
+import convertMS2JSONTo3MLE from './tools/json2mml';
 
 import './Form.css';
 
 const MMLHandler = (event) => {
-  let json = convert3MLEToJSON(event.target.result);
-  return json2fullxml(json);
+  let {result, length} = convert3MLEToJSON(event.target.result);
+  return {length: length, result: json2fullxml(result)};
 }
 const MS2MMLHandler = (event, name) => {
   let json = xml2json(event.target.result);
-  return ms2JSONToMMLConverter(json, { title: name });
+  return convertMS2JSONTo3MLE(json, { title: name });
 }
 const getHandler = getHandlerBuilder(MMLHandler, MS2MMLHandler);
 
@@ -58,9 +58,10 @@ export default class Form extends Component {
     const { name, type, text } = this.state.file;
     fileReader.onload = (event) => {
       let handler = getHandler(type)
-      let result = handler(event, name)
+      let { result, length } = handler(event, name)
       this.setState({
         result: result,
+        length: length,
         changed: false,
         download: {
           url: 'data:text/plain;charset=utf-8,' + encodeURIComponent(result),
@@ -72,8 +73,12 @@ export default class Form extends Component {
   }
 
   render() {
-    const { changed, result, download } = this.state;
+    const { changed, result, length, download } = this.state;
     const buttonMsg = (this.state.file) ? 'Generate ' + (this.state.file.type === 'mml' ? 'MS2MML' : '3MLE MML') : 'Please select a file to upload';
+    const downloadMsg = (!length || length <= 0) ? 'Download...nothing?' :
+    (length <= 3000) ? 'Download (Novice)' :
+    (length <= 5000) ? 'Download (Intermediate)' :
+    (length <= 10000) ? 'Download (Advanced)' : 'Download (Impossible)';
     return (
       <form className={"Form-div " + this.props.className}>
         <div className="Form-leftDiv">
@@ -90,7 +95,7 @@ export default class Form extends Component {
             (download) ? 
             <div>
               <div><p className="arrowDown">&#x25bc;</p></div>
-              <div className="buttonDiv"><a href={download.url} className="label" download={download.name} onClick={this.download}>Download</a></div>
+              <div className="buttonDiv"><a href={download.url} className="label" download={download.name} onClick={this.download}>{downloadMsg}</a></div>
             </div>
             : <div />
           }
