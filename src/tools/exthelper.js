@@ -2,8 +2,8 @@
 /**
  * Constants
  */
-const mmlExtension = "mml";
-const ms2Extension = "ms2mml";
+export const mmlExtension = "mml";
+export const ms2Extension = "ms2mml";
 
 export const getMMLExtension = (file) => {
   if (!file || !file.name) return

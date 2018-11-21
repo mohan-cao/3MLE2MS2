@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import parser from 'fast-xml-parser'
 import RefreshIcon from './RefreshIcon'
 
-import { getHandlerBuilder, getMMLExtension, allValidMMLs } from './tools/exthelper'
+import { getHandlerBuilder, getMMLExtension, allValidMMLs, mmlExtension, ms2Extension } from './tools/exthelper'
 import convert3MLEToJSON from './tools/mml2json';
 import { json2fullxml } from './tools/json2xml'
 import xml2json from './tools/xml2json'
@@ -65,7 +65,7 @@ export default class Form extends Component {
         changed: false,
         download: {
           url: 'data:text/plain;charset=utf-8,' + encodeURIComponent(result),
-          name: name + '.' + (type === 'mml' ? 'ms2mml' : 'mml')
+          name: name + '.' + (type === mmlExtension ? ms2Extension : mmlExtension)
         }
       })
     }
@@ -74,7 +74,7 @@ export default class Form extends Component {
 
   render() {
     const { changed, result, length, download } = this.state;
-    const buttonMsg = (this.state.file) ? 'Generate ' + (this.state.file.type === 'mml' ? 'MS2MML' : '3MLE MML') : 'Please select a file to upload';
+    const buttonMsg = (this.state.file) ? 'Generate ' + (this.state.file.type === mmlExtension ? 'MS2MML' : '3MLE MML') : 'Please select a file to upload';
     const downloadMsg = (!length || length <= 0) ? 'Download...nothing?' :
     (length <= 3000) ? 'Download (Novice)' :
     (length <= 5000) ? 'Download (Intermediate)' :
@@ -96,6 +96,7 @@ export default class Form extends Component {
             <div>
               <div><p className="arrowDown">&#x25bc;</p></div>
               <div className="buttonDiv"><a href={download.url} className="label" download={download.name} onClick={this.download}>{downloadMsg}</a></div>
+              { (this.state.file && this.state.file.type === mmlExtension) ? <p style={{ fontSize: '0.5em' }}>Max. 10 tracks allowed</p> : <div />}
             </div>
             : <div />
           }

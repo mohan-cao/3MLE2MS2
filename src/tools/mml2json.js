@@ -55,7 +55,7 @@ function deepValueSingleReplace(obj, value, replace) {
 
 export default function convert3MLEToJSON(text) {
   let newTemplate = JSON.parse(JSON.stringify(ms2mmlTemplate));
-  let textArr = extractMMLFrom3MLE(text);
+  let textArr = extractMMLFrom3MLE(text).slice(0,maxChannels);
   for (let i = 0; i < maxChannels; i++) {
     if (i < textArr.length) deepValueSingleReplace(newTemplate, "#text", textArr[i]);
     else deepValueSingleReplace(newTemplate, "#text", undefined);
