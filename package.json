@@ -12,10 +12,12 @@
   "dependencies": {
     "fast-xml-parser": "^3.12.7",
     "he": "^1.2.0",
+    "jsmidgen": "^0.1.5",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-scripts": "2.1.1",
-    "tone": "0.12.80"
+    "tone": "0.12.80",
+    "file-saver": "^2.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
