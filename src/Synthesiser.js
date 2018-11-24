@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import saveAs from 'file-saver';
 //import { Synth } from 'tone'
 import { File as MidFile, Track as MidTrack} from 'jsmidgen'
-//import { saveMidi, string2Blob } from './tools/midi2file'
+import { saveMidi } from './tools/midi2file'
 import { parseTrackToTextCmdArray } from './tools/playback/'
 
 
@@ -17,7 +16,7 @@ export default class SynthesizerComponent extends Component {
     }
     window.MidFile = MidFile
     window.MidTrack = MidTrack
-    window.saveAs = saveAs
+    window.saveMidi = saveMidi
     window.parsedTrack = parseTrackToTextCmdArray(testTrack)
   }
   componentDidMount () {

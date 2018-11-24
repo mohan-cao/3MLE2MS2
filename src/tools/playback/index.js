@@ -1,2 +1,2 @@
-import { parseTrackToTextCmdArray as a } from './playback'
-export const parseTrackToTextCmdArray = a
+import * as functions from './playback'
+export const parseTrackToTextCmdArray = functions.parseTrackToTextCmdArray

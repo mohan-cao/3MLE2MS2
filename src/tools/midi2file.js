@@ -7,9 +7,11 @@ export function string2Blob(string) {
   return new Blob([new Uint8Array(Array.from(string).map(x => x[0].charCodeAt(0)))])
 }
 /**
- * Saves the midi using 
- * @param {Blob} blob 
+ * Saves the midi using file-saver
+ * @param {Blob | string} obj - blob or string
+ * @param {string} [fileName='output.mid'] - fileName, default is output.mid
  */
-export function saveMidi(blob) {
-  saveAs(blob, "output.mid")
+export function saveMidi(obj, fileName='output.mid') {
+  if (!(obj instanceof Blob)) saveAs(string2Blob(obj), fileName)
+  else saveAs(obj, fileName)
 }
