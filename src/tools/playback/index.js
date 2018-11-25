@@ -1,2 +1,2 @@
 import * as functions from './playback'
-export const parseTrackToTextCmdArray = functions.parseTrackToTextCmdArray
+export const parseTrackToNoteObjects = functions.parseTrackToNoteObjects
