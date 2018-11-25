@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-//import { Synth } from 'tone'
-import { File as MidFile, Track as MidTrack} from 'jsmidgen'
+import Tone, { Synth } from 'tone'
 import { saveMidi } from './tools/midi2file'
 import { parseTrackToNoteObjects } from './tools/playback/'
 
@@ -14,8 +13,6 @@ export default class SynthesizerComponent extends Component {
     this.state = {
       track: parseTrackToNoteObjects(testTrack)
     }
-    window.MidFile = MidFile
-    window.MidTrack = MidTrack
     window.saveMidi = saveMidi
     window.parsedTrack = parseTrackToNoteObjects(testTrack)
   }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import parser from 'fast-xml-parser'
+import saveAs from 'file-saver'
 import RefreshIcon from './RefreshIcon'
 
 import { getHandlerBuilder, getMMLExtension, allValidMMLs, mmlExtension, ms2Extension } from './tools/exthelper'
@@ -64,12 +65,17 @@ export default class Form extends Component {
         length: length,
         changed: false,
         download: {
-          url: 'data:text/plain;charset=utf-8,' + encodeURIComponent(result),
+          text: result,
           name: name + '.' + (type === mmlExtension ? ms2Extension : mmlExtension)
         }
       })
     }
     fileReader.readAsText(text);
+  }
+
+  download = (e) => {
+    e.preventDefault()
+    saveAs(this.state.download.text, this.state.download.name)
   }
 
   render() {
@@ -95,7 +101,7 @@ export default class Form extends Component {
             (download) ? 
             <div>
               <div><p className="arrowDown">&#x25bc;</p></div>
-              <div className="buttonDiv"><a href={download.url} className="label" download={download.name} onClick={this.download}>{downloadMsg}</a></div>
+              <div className="buttonDiv"><button className="label" onClick={this.download}>{downloadMsg}</button></div>
               { (this.state.file && this.state.file.type === mmlExtension) ? <p style={{ fontSize: '0.5em' }}>Max. 10 tracks allowed</p> : <div />}
             </div>
             : <div />

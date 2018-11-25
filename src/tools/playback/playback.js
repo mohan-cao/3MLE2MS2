@@ -1,4 +1,3 @@
-import { Track as MidTrack } from 'jsmidgen'
 import VolumeEvent from './VolumeEvent'
 import TempoEvent from './TempoEvent'
 import MeasureDivisionEvent from './MeasureDivisionEvent'
@@ -36,14 +35,6 @@ export function noteToTicks(note, defaultNoteTicks) {
  */
 export function noteToSeconds(note, defaultNoteTicks, bpm) {
   return noteToTicks(note, defaultNoteTicks) * 60 / (bpm * mmlPPQ)
-}
-
-function handleTempoChange(intermed) {
-  if (!intermed[0] === 't' && !intermed[1] === 't') return
-  if (intermed[0] === 't') {
-    return new TempoEvent(parseInt(intermed.slice(1)))
-  }
-  return new TempoEvent(parseInt(intermed.slice(2)))
 }
 
 export const parseTrackToNoteObjects = (track) => {
