@@ -16,7 +16,7 @@ export const numberNoteToNote = (number) => {
 export default class NoteEvent {
   constructor(note, value, dotted=false, tied=false, octave=null) {
     this.note = note
-    this.value = value
+    this.value = (typeof value === 'number' && value > 0 && value <= 64) ? value : null
     if (dotted) this.dotted = !!dotted
     if (tied) this.tied = !!tied
     if (octave) this.octave = octave

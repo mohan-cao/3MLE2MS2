@@ -17,14 +17,16 @@ export const mmlPPQ = 96
 /**
  * Lossy conversion of MML note to ticks
  * Converts notes to ticks with default note tick fallback
+ * @param { MeasureDivisionEvent | NoteEvent | RestEvent } note 
+ * @param { Number } defaultNoteTicks 
  */
 export function noteToTicks(note, defaultNoteTicks) {
-  return ((note[1]) ?
+  return ((note.value) ?
     Math.min(Math.max(6,
-      Math.floor(384/parseInt(note[1]))
+      Math.floor(384/note.value)
     ), 384) :
     defaultNoteTicks
-  ) * (note[2] === '.' ? 1.5 : 1)
+  ) * (note.dotted ? 1.5 : 1)
 }
 
 /**
@@ -37,6 +39,10 @@ export function noteToSeconds(note, defaultNoteTicks, bpm) {
   return noteToTicks(note, defaultNoteTicks) * 60 / (bpm * mmlPPQ)
 }
 
+/**
+ * Parses track string to note objects
+ * @param {string} track 
+ */
 export const parseTrackToNoteObjects = (track) => {
   let mapNoteCmdToObject = [
     MeasureDivisionEvent.handleMDivChange,
@@ -66,5 +72,6 @@ export class State {
     this.measureDivision = defaultMDivision
     this.volume = defaultVolume
     this.previousNote = null
+    this.rest = 0
   }
 }
