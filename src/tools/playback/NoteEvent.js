@@ -36,10 +36,7 @@ export default class NoteEvent extends StatefulEvent {
     let note = event.toString().match(/^(&)?n([0-9]*)/)
     if (!note) return event
     let res = numberNoteToNote(parseInt(note[2]))
-    if (!res) {
-      console.log('wtf happened', event)
-      return
-    }
+    if (!res) throw new Error('wtf happened with note ' + event)
     return new NoteEvent(res[0], null, false, note[1], res[1])
   }
   run(state) {

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Form from './Form';
 
-import logo from './mushroom.png';
-import bg from './bg2.jpg';
+import logo from './res/mushroom.png';
+import bg from './res/bg2.jpg';
 import './App.css';
 
 class App extends Component {

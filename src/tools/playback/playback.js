@@ -17,16 +17,18 @@ const restrict = (number, a, b) => {
  * Lossy conversion of MML note to ticks
  * Converts notes to ticks with default note fallback
  * @param { MeasureDivisionEvent | NoteEvent | RestEvent } note - Event with length
- * @param { Number } defaultNote - Default note value
+ * @param { Number } defaultNote - Default note event with length
  */
 export function noteToTicks(note, defaultNote) {
-  return restrict(Math.floor(384 / ((note.value) ? note.value : defaultNote)), 6, 384) * ((note.dotted) ? 1.5 : 1)
+  if (note.value) return restrict(Math.floor(384 / note.value), 6, 384) * ((note.dotted) ? 1.5 : 1)
+  else if (note.dotted) return restrict(Math.floor(384 / defaultNote.value), 6, 384) * 1.5
+  return restrict(Math.floor(384 / defaultNote.value), 6, 384) * ((defaultNote.dotted) ? 1.5 : 1)
 }
 
 /**
  * Converts MML note to playback seconds lossily
  * @param { MeasureDivisionEvent | NoteEvent | RestEvent } note - Event with length
- * @param { Number } defaultNote - Default note value
+ * @param { Number } defaultNote - Default note event with length
  * @param { Number } bpm - Beats per minute
  */
 export function noteToSeconds(note, defaultNote, bpm) {
@@ -68,8 +70,8 @@ export const parseTrackToNoteObjects = (track) => {
  */
 export const readTrackToNotes = (notes) => {
   let state = new State([])
-  for (let k in notes) {
-    notes[k].run(state)
+  for (let i=0; i < notes.length; i++) {
+    notes[i].run(state)
   }
   return state.playables
 }
@@ -79,7 +81,7 @@ export class State {
     this.time = 0
     this.octave = defaultOctave
     this.tempo = defaultTempo
-    this.measureDivision = defaultMDivision
+    this.measureDivision = new MeasureDivisionEvent(defaultMDivision)
     this.volume = defaultVolume
     this.previousNote = null
     this.rest = 0

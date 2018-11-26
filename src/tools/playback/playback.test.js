@@ -25,12 +25,42 @@ test('full measure note seconds', () => {
 
 test('parse n notes', () => {
   const track = 'l1n64&n64n48n58'
-  expect(functions.parseTrackToNoteObjects(track)).toEqual([
+  const noteObjs = functions.parseTrackToNoteObjects(track)
+  const tones = functions.readTrackToNotes(noteObjs)
+  expect(noteObjs).toEqual([
     new MeasureDivisionEvent(1),
     new NoteEvent('E', null, false, false, 5),
     new NoteEvent('E', null, false, true, 5),
     new NoteEvent('C', null, false, false, 4),
     new NoteEvent('A#', null, false, false, 4),
+  ])
+  expect(tones).toEqual([
+    {"duration": 4, "note": "E5", "time": 0, "velocity": 8},
+    {"duration": 2, "note": "C4", "time": 4, "velocity": 8},
+    {"duration": 2, "note": "A#4", "time": 6, "velocity": 8}
+  ])
+})
+
+test('parse default (dance) notes', () => {
+  const track = 'l1.aa.l2.bn58l4c.'
+  const noteObjs = functions.parseTrackToNoteObjects(track)
+  const tones = functions.readTrackToNotes(noteObjs)
+  expect(noteObjs).toEqual([
+    new MeasureDivisionEvent(1, true),
+    new NoteEvent('A', null),
+    new NoteEvent('A', null, true),
+    new MeasureDivisionEvent(2, true),
+    new NoteEvent('B', null),
+    new NoteEvent('A#', null, false, false, 4),
+    new MeasureDivisionEvent(4, false),
+    new NoteEvent('C', null, true),
+  ])
+  expect(tones).toEqual([
+    {"duration": 3, "note": "A4", "time": 0, "velocity": 8},
+    {"duration": 3, "note": "A4", "time": 3, "velocity": 8},
+    {"duration": 1.5, "note": "B4", "time": 6, "velocity": 8},
+    {"duration": 1.5, "note": "A#4", "time": 7.5, "velocity": 8},
+    {"duration": 0.75, "note": "C4", "time": 9, "velocity": 8}
   ])
 })
 
