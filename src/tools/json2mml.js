@@ -17,10 +17,8 @@ export default function convertJSONTo3MLE(json, settings={encoding: dencoding, t
   if (!settings.encoding) settings.encoding = dencoding;
   if (!settings.title) settings.title = dtitle;
   if (!settings.source) settings.source = dsource;
-  let tracks = findAllMML(keyMap, json)
-  if (tracks) tracks = tracks.map(x => filterCommentsAndCollapse(x))
-
-  var trackStrings = '';
+  let tracks = convertJSONToTrackArray(json);
+  let trackStrings = '';
   for (let i=0; i < tracks.length; i++) {
     trackStrings += `[Channel${i+1}]\n${tracks[i]}\n`;
   }
@@ -28,6 +26,12 @@ export default function convertJSONTo3MLE(json, settings={encoding: dencoding, t
     length: tracks.map(x => x.length).reduce((a,b) => a+b, 0),
     result: `[Settings]\nEncoding=${settings.encoding}\nTitle=${settings.title}\nSource=${settings.source}\nMemo=\n${trackStrings}`
   };
+}
+
+export function convertJSONToTrackArray(json) {
+  let tracks = findAllMML(keyMap, json)
+  if (tracks) tracks = tracks.map(x => filterCommentsAndCollapse(x))
+  return tracks
 }
 
 export const extractMMLFromJSON = (json) => {

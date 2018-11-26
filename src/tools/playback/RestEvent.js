@@ -1,5 +1,9 @@
-export default class RestEvent {
+import StatefulEvent from "./StatefulEvent";
+import { noteToSeconds } from "./playback";
+
+export default class RestEvent extends StatefulEvent {
   constructor(value, dotted=false) {
+    super(value)
     this.value = (typeof value === 'number' && value >= 1 && value <= 64) ? value : null
     this.dotted = !!dotted
   }
@@ -9,5 +13,8 @@ export default class RestEvent {
       new RestEvent(parseInt(event.slice(1,-1)), true) :
       new RestEvent(parseInt(event.slice(1))
     )
+  }
+  run(state) {
+    state.addRest(noteToSeconds(this, state.measureDivision, state.tempo))
   }
 }

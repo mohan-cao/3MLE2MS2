@@ -1,6 +1,13 @@
-export default class MeasureDivisionEvent {
+import StatefulEvent from './StatefulEvent';
+
+export const DEFAULT_NOTE_DIVISION = 4
+export const MIN_NOTE_DIVISION = 1
+export const MAX_NOTE_DIVISION = 64
+
+export default class MeasureDivisionEvent extends StatefulEvent {
   constructor(value, dotted=false) {
-    this.value = (typeof value === 'number' && value >= 1 && value <= 64) ? value : 4
+    super(value)
+    this.value = (typeof value === 'number' && value >= MIN_NOTE_DIVISION && value <= MAX_NOTE_DIVISION) ? value : DEFAULT_NOTE_DIVISION
     this.dotted = !!dotted
   }
   static handleMDivChange(event) {
@@ -9,5 +16,8 @@ export default class MeasureDivisionEvent {
       new MeasureDivisionEvent(parseInt(event.slice(1,-1)), true) :
       new MeasureDivisionEvent(parseInt(event.slice(1))
     )
+  }
+  run(state) {
+    state.measureDivision = (this.dotted) ? 2*this.value/3 : this.value;
   }
 }

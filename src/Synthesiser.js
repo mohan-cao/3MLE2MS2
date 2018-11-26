@@ -1,30 +1,36 @@
 import React, {Component} from 'react';
 import Tone, { Synth } from 'tone'
-import { saveMidi } from './tools/midi2file'
-import { parseTrackToNoteObjects } from './tools/playback/'
-
-
-let testTrack = 't120v1o1a8&a1b2>c3dv2l64ce5f6v3g7a8b9v4>c10d11e12v5f13g14a15v6>c16d17e18v7f19g20a21v8>c22d23e24v9f25g26a27v10>c28d29e30v11f31g32a33v12>c34d35e36v13f37g38a39v14>c41d42e43f44v15g45a46g47f48e49d50c51<b52a53g54f55e56d57c58<b59a60g61f62e63dc1'
-//const defaults = 't120o4v8l4s0p120'
+import readTrack from './tools/playback/'
 
 export default class SynthesizerComponent extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      track: parseTrackToNoteObjects(testTrack)
+      synths: []
     }
-    window.saveMidi = saveMidi
-    window.parsedTrack = parseTrackToNoteObjects(testTrack)
   }
   componentDidMount () {
     this.setState({
-
+      synths: new Tone.PolySynth(10, Tone.Synth).toMaster()
     })
   }
+  playNotes = (e, tracks) => {
+    e.preventDefault()
+    if (!tracks) return
+    let { synths } = this.state
+    for (const i in tracks.slice(0, 10)) {
+      new Tone.Part(function(time, event){
+        synths.triggerAttackRelease(event.note, event.duration, time, event.velocity);
+      }, tracks[i]).start(0);
+    }
+    Tone.Transport.start();
+  }
   render() {
+    let tracks = this.props.tracks ? this.props.tracks.map(x => readTrack(x)) : []
+    console.log(tracks)
     return (
-      <div>
-        <button>Test</button>
+      <div style={{ display: 'inline-block' }}>
+        <button onClick={(e) => this.playNotes(e, tracks)} disabled={!tracks.length}>Play song</button>
       </div>
     )
   }

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Form from './Form';
-import Synthesiser from './Synthesiser';
 
 import logo from './mushroom.png';
 import bg from './bg2.jpg';
@@ -16,7 +15,6 @@ class App extends Component {
           <h1 style={{ zIndex: 3 }}>3MLE to MS2MML converter</h1>
         </header>
         <Form className="App-form" />
-        <Synthesiser />
       </div>
     );
   }

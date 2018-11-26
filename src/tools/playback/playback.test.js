@@ -15,13 +15,22 @@ test('full measure division', () => {
   expect(functions.noteToTicks(new MeasureDivisionEvent(1))).toBe(384)
 });
 
+test('full measure note', () => {
+  expect(functions.noteToTicks(new NoteEvent("c", 1))).toBe(384)
+});
+
+test('full measure note seconds', () => {
+  expect(functions.noteToSeconds(new NoteEvent("c", 1), 4, 120)).toBe(2)
+});
+
 test('parse n notes', () => {
-  const track = 'l1n64&n64n48'
+  const track = 'l1n64&n64n48n58'
   expect(functions.parseTrackToNoteObjects(track)).toEqual([
     new MeasureDivisionEvent(1),
     new NoteEvent('E', null, false, false, 5),
     new NoteEvent('E', null, false, true, 5),
-    new NoteEvent('C', null, false, false, 4)
+    new NoteEvent('C', null, false, false, 4),
+    new NoteEvent('A#', null, false, false, 4),
   ])
 })
 
@@ -29,6 +38,15 @@ test('parse normal track', () => {
   const track = `t120v1o1a8&a1b2>c3dv2l64ce5f6v3g7a8b9v4>c10d11e12v5f13g14a15v6>c16d17e
   18v7f19g20a21v8>c22d23e24v9f25g26a27v10>c28d29e30v11f31g32a33v12>c34d3
   5e36v13f37g38a39v14>c41d42e43f44v15g45a46g47f48e49d50c51<b52a53g54f55e
-  56d57c58<b59a60g61f62e63dc1r4`
-  expect(functions.parseTrackToNoteObjects(track).length).toBe(94)
+  56d57c58<b59a60g61f62e63dc1r4b4`
+  const noteObjs = functions.parseTrackToNoteObjects(track)
+  const tones = functions.readTrackToNotes(noteObjs)
+  expect(noteObjs.length).toBe(95)
+  expect(tones).toEqual([{"duration": 2.25, "note": "A1", "time": 0, "velocity": 0.06666666666666667}, {"duration": 1, "note": "B1", "time": 2.25, "velocity": 0.06666666666666667}, {"duration": 0.6666666666666666, "note": "C2", "time": 3.25, "velocity": 0.06666666666666667}, {"duration": 0.5, "note": "D2", "time": 3.9166666666666665, "velocity": 0.06666666666666667}, {"duration": 0.03125, "note": "C2", "time": 4.416666666666666, "velocity": 0.13333333333333333}, {"duration": 0.3958333333333333, "note": "E2", "time": 4.447916666666666, "velocity": 0.13333333333333333}, {"duration":
+  0.3333333333333333, "note": "F2", "time": 4.843749999999999, "velocity": 0.13333333333333333},
+  {"duration": 0.28125, "note": "G2", "time": 5.177083333333332, "velocity": 0.2}, {"duration": 0.25, "note": "A2", "time": 5.458333333333332, "velocity": 0.2}, {"duration": 0.21875, "note": "B2", "time": 5.708333333333332, "velocity": 0.2}, {"duration": 0.19791666666666666, "note": "C3", "time": 5.927083333333332, "velocity": 0.26666666666666666}, {"duration": 0.17708333333333334, "note": "D3", "time": 6.124999999999999, "velocity": 0.26666666666666666}, {"duration": 0.16666666666666666, "note": "E3", "time": 6.302083333333332, "velocity": 0.26666666666666666}, {"duration": 0.15104166666666666, "note": "F3", "time": 6.468749999999999, "velocity": 0.3333333333333333}, {"duration": 0.140625, "note": "G3", "time": 6.619791666666666, "velocity": 0.3333333333333333}, {"duration": 0.13020833333333334, "note": "A3", "time": 6.760416666666666, "velocity": 0.3333333333333333}, {"duration": 0.125, "note": "C4", "time": 6.890624999999999, "velocity": 0.4}, {"duration": 0.11458333333333333, "note": "D4", "time": 7.015624999999999, "velocity": 0.4}, {"duration": 0.03125, "note": "E4", "time": 7.130208333333332, "velocity": 0.4}, {"duration": 0.10416666666666667, "note": "F4", "time": 7.161458333333332, "velocity": 0.4666666666666667}, {"duration": 0.09895833333333333, "note": "G4", "time": 7.265624999999999, "velocity": 0.4666666666666667}, {"duration": 0.09375, "note": "A4", "time": 7.364583333333332, "velocity": 0.4666666666666667}, {"duration": 0.08854166666666667, "note": "C5", "time": 7.458333333333332,
+  "velocity": 0.5333333333333333}, {"duration": 0.08333333333333333, "note": "D5", "time": 7.546874999999999, "velocity": 0.5333333333333333}, {"duration": 0.08333333333333333, "note": "E5", "time": 7.630208333333332, "velocity": 0.5333333333333333}, {"duration": 0.078125, "note": "F5", "time": 7.713541666666665, "velocity": 0.6}, {"duration": 0.07291666666666667, "note": "G5", "time": 7.791666666666665, "velocity": 0.6}, {"duration": 0.07291666666666667, "note": "A5", "time": 7.864583333333332, "velocity": 0.6}, {"duration": 0.06770833333333333, "note": "C6", "time": 7.937499999999999, "velocity": 0.6666666666666666}, {"duration": 0.06770833333333333, "note": "D6", "time": 8.005208333333332, "velocity": 0.6666666666666666}, {"duration": 0.0625, "note": "E6", "time": 8.072916666666666, "velocity": 0.6666666666666666}, {"duration": 0.0625, "note": "F6", "time": 8.135416666666666, "velocity": 0.7333333333333333}, {"duration": 0.0625, "note": "G6", "time": 8.197916666666666, "velocity": 0.7333333333333333}, {"duration": 0.057291666666666664, "note": "A6", "time": 8.260416666666666, "velocity": 0.7333333333333333}, {"duration":
+  0.057291666666666664, "note": "C7", "time": 8.317708333333332, "velocity": 0.8}, {"duration": 0.6666666666666666, "note": "D7", "time": 8.374999999999998, "velocity": 0.8}, {"duration": 0.052083333333333336, "note": "E7", "time": 9.041666666666664, "velocity": 0.8}, {"duration": 0.052083333333333336, "note": "F7", "time": 9.093749999999998, "velocity": 0.8666666666666667}, {"duration": 0.052083333333333336, "note": "G7", "time": 9.145833333333332, "velocity": 0.8666666666666667}, {"duration": 0.046875, "note": "A7", "time": 9.197916666666666, "velocity": 0.8666666666666667}, {"duration": 0.046875, "note": "C8", "time": 9.244791666666666, "velocity": 0.9333333333333333}, {"duration": 0.046875, "note": "D8", "time": 9.291666666666666, "velocity": 0.9333333333333333}, {"duration": 0.041666666666666664, "note": "E8", "time": 9.338541666666666, "velocity": 0.9333333333333333}, {"duration": 0.041666666666666664, "note": "F8", "time": 9.380208333333332, "velocity": 0.9333333333333333}, {"duration": 0.041666666666666664, "note": "G8", "time": 9.421874999999998, "velocity": 1}, {"duration": 0.041666666666666664, "note": "A8", "time": 9.463541666666664, "velocity": 1}, {"duration": 0.041666666666666664, "note": "G8", "time":
+  9.50520833333333, "velocity": 1}, {"duration": 0.041666666666666664, "note": "F8", "time": 9.546874999999996, "velocity": 1}, {"duration": 0.036458333333333336, "note": "E8", "time": 9.588541666666663, "velocity": 1}, {"duration": 0.036458333333333336, "note": "D8", "time": 9.624999999999996, "velocity": 1}, {"duration": 0.036458333333333336, "note": "C8", "time": 9.66145833333333, "velocity": 1}, {"duration": 0.036458333333333336, "note": "B7", "time": 9.697916666666664, "velocity": 1}, {"duration": 0.036458333333333336, "note": "A7", "time": 9.734374999999998, "velocity": 1}, {"duration": 0.036458333333333336, "note": "G7", "time": 9.770833333333332, "velocity": 1}, {"duration": 0.03125, "note": "F7", "time": 9.807291666666666, "velocity": 1}, {"duration": 0.03125, "note": "E7", "time": 9.838541666666666, "velocity": 1}, {"duration": 0.03125, "note": "D7", "time": 9.869791666666666, "velocity": 1}, {"duration": 0.03125, "note": "C7",
+  "time": 9.901041666666666, "velocity": 1}, {"duration": 0.03125, "note": "B6", "time": 9.932291666666666, "velocity": 1}, {"duration": 0.03125, "note": "A6", "time": 9.963541666666666, "velocity": 1}, {"duration": 0.03125, "note": "G6", "time": 9.994791666666666, "velocity": 1}, {"duration": 0.03125, "note": "F6", "time": 10.026041666666666, "velocity": 1}, {"duration": 0.03125, "note": "E6", "time": 10.057291666666666, "velocity": 1}, {"duration": 0.03125, "note": "D6", "time": 10.088541666666666, "velocity": 1}, {"duration": 2, "note": "C6", "time": 10.119791666666666, "velocity": 1}, {"duration": 0.5, "note": "B6", "time": 12.619791666666666, "velocity": 1 }])
 })

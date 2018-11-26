@@ -1,42 +1,36 @@
-import VolumeEvent from './VolumeEvent'
-import TempoEvent from './TempoEvent'
-import MeasureDivisionEvent from './MeasureDivisionEvent'
-import OctaveEvent from './OctaveEvent'
+import VolumeEvent, { DEFAULT_VOL as defaultVolume} from './VolumeEvent'
+import TempoEvent, { DEFAULT_TEMPO as defaultTempo, MML_PPQ } from './TempoEvent'
+import MeasureDivisionEvent, { DEFAULT_NOTE_DIVISION as defaultMDivision } from './MeasureDivisionEvent'
+import OctaveEvent, { DEFAULT_OCTAVE as defaultOctave } from './OctaveEvent'
 import RestEvent from './RestEvent'
 import NoteEvent from './NoteEvent';
 
 /**
  * CONSTANTS
  */
-export const defaultTempo = 120
-export const defaultOctave = 4
-export const defaultMDivision = 96 // 96 = 1 quarter note
-export const defaultVolume = 63 //default 64, velocity = 0 - 127
-export const mmlPPQ = 96
+
+const restrict = (number, a, b) => {
+  return Math.min(Math.max(number, a), b)
+}
 
 /**
  * Lossy conversion of MML note to ticks
- * Converts notes to ticks with default note tick fallback
- * @param { MeasureDivisionEvent | NoteEvent | RestEvent } note 
- * @param { Number } defaultNoteTicks 
+ * Converts notes to ticks with default note fallback
+ * @param { MeasureDivisionEvent | NoteEvent | RestEvent } note - Event with length
+ * @param { Number } defaultNote - Default note value
  */
-export function noteToTicks(note, defaultNoteTicks) {
-  return ((note.value) ?
-    Math.min(Math.max(6,
-      Math.floor(384/note.value)
-    ), 384) :
-    defaultNoteTicks
-  ) * (note.dotted ? 1.5 : 1)
+export function noteToTicks(note, defaultNote) {
+  return restrict(Math.floor(384 / ((note.value) ? note.value : defaultNote)), 6, 384) * ((note.dotted) ? 1.5 : 1)
 }
 
 /**
  * Converts MML note to playback seconds lossily
- * @param {*} note 
- * @param {*} defaultNoteTicks 
- * @param {*} bpm 
+ * @param { MeasureDivisionEvent | NoteEvent | RestEvent } note - Event with length
+ * @param { Number } defaultNote - Default note value
+ * @param { Number } bpm - Beats per minute
  */
-export function noteToSeconds(note, defaultNoteTicks, bpm) {
-  return noteToTicks(note, defaultNoteTicks) * 60 / (bpm * mmlPPQ)
+export function noteToSeconds(note, defaultNote, bpm) {
+  return noteToTicks(note, defaultNote) * 60 / (bpm * MML_PPQ)
 }
 
 /**
@@ -56,6 +50,7 @@ export const parseTrackToNoteObjects = (track) => {
   let matcher = /(&?[a-z][-+#]?[0-9]*\.?|[<>])/g // the magic sauce
   // validate
   let result = track.match(matcher)
+  if (!result) return []
   for (let i=0; i < result.length; i++) {
     let validResult = result[i]
     for (let j in mapNoteCmdToObject) {
@@ -66,12 +61,50 @@ export const parseTrackToNoteObjects = (track) => {
   return result
 }
 
+/**
+ * Reads notes and outputs an array of objects
+ * Objects are notes with a playback time and duration in seconds, and octave (1-8)
+ * @param {[StatefulEvent]} notes 
+ */
+export const readTrackToNotes = (notes) => {
+  let state = new State([])
+  for (let k in notes) {
+    notes[k].run(state)
+  }
+  return state.playables
+}
+
 export class State {
-  constructor() {
+  constructor(playables=[]) {
+    this.time = 0
     this.octave = defaultOctave
+    this.tempo = defaultTempo
     this.measureDivision = defaultMDivision
     this.volume = defaultVolume
     this.previousNote = null
     this.rest = 0
+    this.playables = [...playables]
+  }
+  playNote(note, value) {
+    this.time += this.rest
+    this.rest = 0
+    this.playables.push({ note: note, duration: value, time: this.time, velocity: this.volume })
+    this.time += value
+    this.previousNote = note
+  }
+  addTie(note, value) {
+    if (!this.previousNote || !this.playables.length) return this.playNote(note, value)
+    if (this.previousNote === note && this.playables.slice(-1)[0].note === note) {
+      this.playables[this.playables.length - 1].duration += value
+      this.time += value
+      this.rest = 0
+      this.previousNote = note
+    } else {
+      this.playNote(note, value)
+    }
+  }
+  addRest(value) {
+    this.rest += value
+    this.previousNote = 'R'
   }
 }

@@ -1,2 +1,4 @@
 import * as functions from './playback'
-export const parseTrackToNoteObjects = functions.parseTrackToNoteObjects
+export default function readTrackToArray(track) {
+    return functions.readTrackToNotes(functions.parseTrackToNoteObjects(track))
+}

@@ -1,4 +1,7 @@
-const mappings = { 12: "C", 13: "C#", 14: "D", 15: "D#", 16: "E", 17: "F", 18: "F#", 19: "G", 20: "G#", 21: "A", 22: "A#", 23: "B" }
+import StatefulEvent from './StatefulEvent';
+import { noteToSeconds } from './playback';
+
+const mappings = { 0: "C", 1: "C#", 2: "D", 3: "D#", 4: "E", 5: "F", 6: "F#", 7: "G", 8: "G#", 9: "A", 10: "A#", 11: "B" }
 const overrides = { "B#": "C", "Cb": "B", "E#": "F", "Fb": "E" }
 
 /**
@@ -7,14 +10,13 @@ const overrides = { "B#": "C", "Cb": "B", "E#": "F", "Fb": "E" }
  * @param {*} number 
  */
 export const numberNoteToNote = (number) => {
-  for (let key in mappings) {
-    if (number % key) continue
-    return [mappings[key], Math.floor(number / 12)]
-  }  
+  let octave = Math.floor(number / 12);
+  return [mappings[number%12], octave]
 }
 
-export default class NoteEvent {
+export default class NoteEvent extends StatefulEvent {
   constructor(note, value, dotted=false, tied=false, octave=null) {
+    super(note, value)
     this.note = note
     this.value = (typeof value === 'number' && value > 0 && value <= 64) ? value : null
     if (dotted) this.dotted = !!dotted
@@ -33,7 +35,21 @@ export default class NoteEvent {
     if (!event) return event
     let note = event.toString().match(/^(&)?n([0-9]*)/)
     if (!note) return event
-    let [n, octave] = numberNoteToNote(parseInt(note[2]))
-    return new NoteEvent(n, null, false, note[1], octave)
+    let res = numberNoteToNote(parseInt(note[2]))
+    if (!res) {
+      console.log('wtf happened', event)
+      return
+    }
+    return new NoteEvent(res[0], null, false, note[1], res[1])
+  }
+  run(state) {
+    let noteSeconds = noteToSeconds(this, state.measureDivision, state.tempo)
+    let noteActual = this.note.toString() + ((this.octave) ? this.octave : state.octave)
+    if (this.tied) {
+      state.addTie(noteActual, noteSeconds)
+    } else {
+      // actually play the bloody note
+      state.playNote(noteActual, noteSeconds)
+    }
   }
 }
