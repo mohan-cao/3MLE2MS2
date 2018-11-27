@@ -3,7 +3,8 @@ import TempoEvent, { DEFAULT_TEMPO as defaultTempo, MML_PPQ } from './TempoEvent
 import MeasureDivisionEvent, { DEFAULT_NOTE_DIVISION as defaultMDivision } from './MeasureDivisionEvent'
 import OctaveEvent, { DEFAULT_OCTAVE as defaultOctave } from './OctaveEvent'
 import RestEvent from './RestEvent'
-import NoteEvent from './NoteEvent';
+import NoteEvent from './NoteEvent'
+import StatefulEvent from './StatefulEvent'
 
 /**
  * CONSTANTS
@@ -70,9 +71,11 @@ export const parseTrackToNoteObjects = (track) => {
  */
 export const readTrackToNotes = (notes) => {
   let state = new State([])
-  for (let i=0; i < notes.length; i++) {
-    notes[i].run(state)
-  }
+  try {
+    for (let i=0; i < notes.length; i++) {
+      if (notes[i] instanceof StatefulEvent) notes[i].run(state)
+    }
+  } catch (e) { console.error(e) }
   return state.playables
 }
 

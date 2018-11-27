@@ -112,7 +112,7 @@ export default class Form extends Component {
         <div className="Form-rightDiv">
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <h1 style={{ marginRight: 20 }}>Preview</h1>
-            <SynthesizerComponent tracks={mml} />
+        { (mml && mml.length) ? <SynthesizerComponent tracks={mml} /> : <div /> }
           </div>
           <textarea className="Form-textResult" value={result} readOnly/>
         </div>
