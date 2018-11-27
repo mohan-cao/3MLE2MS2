@@ -27,7 +27,7 @@ let SampleLibrary = {
         return console.log("sample extensions set to " + this.ext)
     },
 
-    load: function (arg) {
+    load: async function (arg) {
         var t, rt, i;
         (arg) ? t = arg: t = {};
         t.instruments = t.instruments || this.list;
@@ -51,6 +51,17 @@ let SampleLibrary = {
             const newLocal_1 = function (f) {
                 delete newT[f];
             };
+            const promise = (rt, t, newT) => {
+                return new Promise((resolve) => {
+                    rt[t.instruments[i]] = new Tone.Sampler(
+                        newT, {
+                            baseUrl: t.baseUrl + t.instruments[i] + "/",
+                            'release' : 1,
+                            'onload' : resolve
+                        }
+                    )
+                })
+            }
             for (i = 0; i <= t.instruments.length - 1; i++) {
                 var newT = this[t.instruments[i]];
                 //Minimize the number of samples to load
@@ -72,16 +83,7 @@ let SampleLibrary = {
                     filtered.forEach(newLocal_1)
 
                 }
-
-
-
-
-                rt[t.instruments[i]] = new Tone.Sampler(
-                    newT, {
-                        baseUrl: t.baseUrl + t.instruments[i] + "/"
-                    }
-
-                )
+                await promise(rt, t, newT)
             }
 
             return rt
@@ -113,12 +115,19 @@ let SampleLibrary = {
 
 
 
-
-            var s = new Tone.Sampler(
-                newT, {
-                    baseUrl: t.baseUrl + t.instruments + "/"
-                }
-            )
+            var s;
+            const promise = () => {
+                return new Promise((resolve) => {
+                    s = new Tone.Sampler(
+                        newT, {
+                            baseUrl: t.baseUrl + t.instruments + "/",
+                            'release' : 1,
+                            'onload' : resolve
+                        }
+                    )
+                })
+            }
+            await promise()
 
             return s
         }
