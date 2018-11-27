@@ -127,7 +127,7 @@ export default class SynthesizerComponent extends Component {
       <div className="Synthesiser">
         {
           (loading) ?
-          <button className="non-clickable margin-right-10"><LoadingSymbol style={{ height: '1em', marginRight: '0.3em', fill: 'currentColor' }} alt='Loading' />Loading</button> :
+          <button className="non-clickable margin-right-10" disabled={true}><LoadingSymbol style={{ height: '1em', marginRight: '0.3em', fill: 'currentColor' }} alt='Loading' />Loading</button> :
           <div style={{ display: 'inline-block' }}>
             <button className="clickable" onClick={this.togglePlayback} disabled={disabled}>
               {
