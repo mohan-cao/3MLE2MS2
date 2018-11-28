@@ -16,3 +16,11 @@ test('parse rest notes', () => {
     new RestEvent(null),
   ])
 })
+
+test('deal with tie edge case', () => {
+  const track = 'r1&r1.'
+  expect(functions.parseTrackToNoteObjects(track)).toEqual([
+    new RestEvent(1),
+    new RestEvent(1, true),
+  ])
+})

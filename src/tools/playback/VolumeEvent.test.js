@@ -10,3 +10,11 @@ test('parse volume changes', () => {
     new VolumeEvent(8),
   ])
 })
+
+test('deal with tie edge case', () => {
+  const track = 'v0&v8'
+  expect(functions.parseTrackToNoteObjects(track)).toEqual([
+    new VolumeEvent(0),
+    new VolumeEvent(8),
+  ])
+})

@@ -11,7 +11,8 @@ export default class MeasureDivisionEvent extends StatefulEvent {
     this.dotted = !!dotted
   }
   static handleMDivChange(event) {
-    if (event[0] !== 'l') return event
+    if (event[0] !== 'l' && event[1] !== 'l') return event
+    if (event[0] === '&') event = event.slice(1)
     return (event[event.length - 1] === '.') ?
       new MeasureDivisionEvent(parseInt(event.slice(1,-1)), true) :
       new MeasureDivisionEvent(parseInt(event.slice(1))

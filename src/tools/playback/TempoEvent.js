@@ -11,7 +11,8 @@ export default class TempoEvent extends StatefulEvent {
     this.value = (typeof value === 'number' && value >= MIN_TEMPO && value <= MAX_TEMPO) ? value : DEFAULT_TEMPO;
   }
   static handleTempoChange(event) {
-    if (event[0] !== 't') return event
+    if (event[0] !== 't' && event[1] !== 't') return event
+    if (event[0] === '&') event = event.slice(1)
     return new TempoEvent(parseInt(event.slice(1)))
   }
   run(state) {

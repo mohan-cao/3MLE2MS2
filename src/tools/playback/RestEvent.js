@@ -8,7 +8,8 @@ export default class RestEvent extends StatefulEvent {
     this.dotted = !!dotted
   }
   static handleRestChange(event) {
-    if (event[0] !== 'r') return event
+    if (event[0] !== 'r' && event[1] !== 'r') return event
+    if (event[0] === '&') event = event.slice(1)
     return (event[event.length - 1] === '.') ?
       new RestEvent(parseInt(event.slice(1,-1)), true) :
       new RestEvent(parseInt(event.slice(1))

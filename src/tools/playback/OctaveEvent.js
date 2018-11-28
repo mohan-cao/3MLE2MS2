@@ -13,7 +13,9 @@ export default class OctaveEvent extends StatefulEvent {
     (typeof value === 'number' && value >= MIN_OCTAVE && value <= MAX_OCTAVE) ? value : null;
   }
   static handleOctaveChange(event) {
-    if (event[0] !== 'o' && event[0] !== '<' && event[0] !== '>') return event
+    if (event[0] !== 'o' && event[0] !== '<' && event[0] !== '>' &&
+        event[1] !== 'o' && event[1] !== '<' && event[1] !== '>') return event
+    if (event[0] === '&') event = event.slice(1)
     if (event[0] === '>') return new OctaveEvent(OCTAVE_UP)
     else if (event[0] === '<') return new OctaveEvent(OCTAVE_DOWN)
     else return new OctaveEvent(

@@ -13,3 +13,11 @@ test('parse tempo changes', () => {
     new TempoEvent(120),
   ])
 })
+
+test('deal with tie edge case', () => {
+  const track = 't32&t60'
+  expect(functions.parseTrackToNoteObjects(track)).toEqual([
+    new TempoEvent(32),
+    new TempoEvent(60),
+  ])
+})

@@ -15,3 +15,11 @@ test('parse measure division changes', () => {
     new MeasureDivisionEvent(64),
   ])
 })
+
+test('handle stupid error-ridden ties in front of the change', () => {
+  const track = 'l2&l1'
+  expect(functions.parseTrackToNoteObjects(track)).toEqual([
+    new MeasureDivisionEvent(2),
+    new MeasureDivisionEvent(1)
+  ])
+})
