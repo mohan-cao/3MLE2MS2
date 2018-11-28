@@ -44,14 +44,14 @@ const GENERATED_SOUNDS = {
     'C4': 'C5.[mp3|ogg]',
     'C5': 'C6.[mp3|ogg]',
     'C6': 'C7.[mp3|ogg]',
-    'C7': 'C7.[mp3|ogg]',
+    'C7': 'C8.[mp3|ogg]',
     'D0': 'D1.[mp3|ogg]',
     'D1': 'D2.[mp3|ogg]',
     'D2': 'D3.[mp3|ogg]',
     'D3': 'D4.[mp3|ogg]',
     'D4': 'D5.[mp3|ogg]',
     'D5': 'D6.[mp3|ogg]',
-    'D6': 'D6.[mp3|ogg]',
+    'D6': 'D7.[mp3|ogg]',
     'Db0': 'Db1.[mp3|ogg]',
     'Db1': 'Db2.[mp3|ogg]',
     'Db2': 'Db3.[mp3|ogg]',
@@ -153,7 +153,6 @@ let SampleLibrary = {
                         rt[t.instruments[i]] = new Tone.Sampler(
                             newT, {
                                 baseUrl: t.baseUrl + t.instruments[i] + "/",
-                                'release' : 1,
                                 'onload' : resolve
                             }
                         )
@@ -220,7 +219,6 @@ let SampleLibrary = {
                         s = new Tone.Sampler(
                             newT, {
                                 baseUrl: t.baseUrl + t.instruments + "/",
-                                'release' : 1,
                                 'onload' : resolve
                             }
                         )
