@@ -12,7 +12,7 @@ class App extends Component {
         <header className="App-header">
           <img src={logo} className="App-logo" style={{ zIndex: 2 }} alt="logo" />
           <img src={bg} className="App-bg" alt="bg" />
-          <h1 style={{ zIndex: 3 }}>3MLE to MS2MML converter</h1>
+          <h1 style={{ zIndex: 3, fontSize: '1em', fontWeight: 400, }}>3MLE to MS2MML converter</h1>
         </header>
         <Form className="App-form" />
       </div>

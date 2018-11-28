@@ -1,6 +1,7 @@
 .Synthesiser {
   display: inline-block;
   vertical-align: middle;
+  min-width: 21em;
 }
 
 .Synthesiser * {

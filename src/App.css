@@ -10,7 +10,7 @@
 
 .App-bg {
   display: block;
-  width: 100%;
+  width: 100vw;
   position: absolute;
   z-index: 1;
   transform: scaleX(1.01) scaleY(1.01);
@@ -18,20 +18,21 @@
 }
 
 .App-header {
-  padding-top: 20px;
+  padding: 20px 20px 0 20px;
   height: 20vh;
+  width: 100vw;
   display: flex;
   position: relative;
   overflow: hidden;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 1.5vmin);
+  font-size: calc(10px + 4vmin);
   color: rgb(255, 255, 255);
   box-sizing: border-box;
 }
 .App-form {
-  height: 80vh;
+  min-height: 80vh;
 }
 
 .App-link {

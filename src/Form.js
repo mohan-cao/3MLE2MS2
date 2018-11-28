@@ -77,7 +77,7 @@ export default class Form extends Component {
 
   download = (e) => {
     e.preventDefault()
-    saveAs(this.state.download.text, this.state.download.name)
+    saveAs(new File([this.state.download.text], this.state.download.name, {type: "text/plain;charset=utf-8"}))
   }
 
   render() {
