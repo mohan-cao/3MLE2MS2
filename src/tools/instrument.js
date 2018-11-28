@@ -7,11 +7,107 @@ import Tone from 'tone'
 * https://github.com/nbrosowsky/tonejs-instruments
 */
 
+export const defaultInstrument = 'piano'
+const GENERATED_SOUNDS = {
+    'A0': 'A1.[mp3|ogg]',
+    'A1': 'A2.[mp3|ogg]',
+    'A2': 'A3.[mp3|ogg]',
+    'A3': 'A4.[mp3|ogg]',
+    'A4': 'A5.[mp3|ogg]',
+    'A5': 'A6.[mp3|ogg]',
+    'A6': 'A7.[mp3|ogg]',
+    'Ab0': 'Ab1.[mp3|ogg]',
+    'Ab1': 'Ab2.[mp3|ogg]',
+    'Ab2': 'Ab3.[mp3|ogg]',
+    'Ab3': 'Ab4.[mp3|ogg]',
+    'Ab4': 'Ab5.[mp3|ogg]',
+    'Ab5': 'Ab6.[mp3|ogg]',
+    'Ab6': 'Ab7.[mp3|ogg]',
+    'B0': 'B1.[mp3|ogg]',
+    'B1': 'B2.[mp3|ogg]',
+    'B2': 'B3.[mp3|ogg]',
+    'B3': 'B4.[mp3|ogg]',
+    'B4': 'B5.[mp3|ogg]',
+    'B5': 'B6.[mp3|ogg]',
+    'B6': 'B7.[mp3|ogg]',
+    'Bb0': 'Bb1.[mp3|ogg]',
+    'Bb1': 'Bb2.[mp3|ogg]',
+    'Bb2': 'Bb3.[mp3|ogg]',
+    'Bb3': 'Bb4.[mp3|ogg]',
+    'Bb4': 'Bb5.[mp3|ogg]',
+    'Bb5': 'Bb6.[mp3|ogg]',
+    'Bb6': 'Bb7.[mp3|ogg]',
+    'C0': 'C1.[mp3|ogg]',
+    'C1': 'C2.[mp3|ogg]',
+    'C2': 'C3.[mp3|ogg]',
+    'C3': 'C4.[mp3|ogg]',
+    'C4': 'C5.[mp3|ogg]',
+    'C5': 'C6.[mp3|ogg]',
+    'C6': 'C7.[mp3|ogg]',
+    'C7': 'C7.[mp3|ogg]',
+    'D0': 'D1.[mp3|ogg]',
+    'D1': 'D2.[mp3|ogg]',
+    'D2': 'D3.[mp3|ogg]',
+    'D3': 'D4.[mp3|ogg]',
+    'D4': 'D5.[mp3|ogg]',
+    'D5': 'D6.[mp3|ogg]',
+    'D6': 'D6.[mp3|ogg]',
+    'Db0': 'Db1.[mp3|ogg]',
+    'Db1': 'Db2.[mp3|ogg]',
+    'Db2': 'Db3.[mp3|ogg]',
+    'Db3': 'Db4.[mp3|ogg]',
+    'Db4': 'Db5.[mp3|ogg]',
+    'Db5': 'Db6.[mp3|ogg]',
+    'Db6': 'Db7.[mp3|ogg]',
+    'E0': 'E1.[mp3|ogg]',
+    'E1': 'E2.[mp3|ogg]',
+    'E2': 'E3.[mp3|ogg]',
+    'E3': 'E4.[mp3|ogg]',
+    'E4': 'E5.[mp3|ogg]',
+    'E5': 'E6.[mp3|ogg]',
+    'E6': 'E7.[mp3|ogg]',
+    'Eb0': 'Eb1.[mp3|ogg]',
+    'Eb1': 'Eb2.[mp3|ogg]',
+    'Eb2': 'Eb3.[mp3|ogg]',
+    'Eb3': 'Eb4.[mp3|ogg]',
+    'Eb4': 'Eb5.[mp3|ogg]',
+    'Eb5': 'Eb6.[mp3|ogg]',
+    'Eb6': 'Eb7.[mp3|ogg]',
+    'F0': 'F1.[mp3|ogg]',
+    'F1': 'F2.[mp3|ogg]',
+    'F2': 'F3.[mp3|ogg]',
+    'F3': 'F4.[mp3|ogg]',
+    'F4': 'F5.[mp3|ogg]',
+    'F5': 'F6.[mp3|ogg]',
+    'F6': 'F7.[mp3|ogg]',
+    'G0': 'G1.[mp3|ogg]',
+    'G1': 'G2.[mp3|ogg]',
+    'G2': 'G3.[mp3|ogg]',
+    'G3': 'G4.[mp3|ogg]',
+    'G4': 'G5.[mp3|ogg]',
+    'G5': 'G6.[mp3|ogg]',
+    'G6': 'G7.[mp3|ogg]',
+    'Gb0': 'Gb1.[mp3|ogg]',
+    'Gb1': 'Gb2.[mp3|ogg]',
+    'Gb2': 'Gb3.[mp3|ogg]',
+    'Gb3': 'Gb4.[mp3|ogg]',
+    'Gb4': 'Gb5.[mp3|ogg]',
+    'Gb5': 'Gb6.[mp3|ogg]',
+    'Gb6': 'Gb7.[mp3|ogg]'
+}
+
 let SampleLibrary = {
     minify: false,
     ext: '.[mp3|ogg]', // use setExt to change the extensions on all files // do not change this variable //
-    baseUrl: 'https://raw.githubusercontent.com/nbrosowsky/tonejs-instruments/master/samples/',
-    list: ['bass-electric','bassoon','cello','clarinet','contrabass','flute','french-horn','guitar-acoustic','guitar-electric','guitar-nylon', 'harmonium','harp','organ','piano','saxophone','trombone','trumpet','tuba','violin','xylophone'],
+    baseUrl: 'https://raw.githubusercontent.com/mohan-cao/3MLE2MS2-soundfonts/master/',
+    list: [
+        'piano', 'electric-piano', 'harpsichord', 'harp',
+        'guitar', 'electric-guitar', 'acoustic-bass', 'electric-bass',
+        'violin', 'pizzicato-strings', 'cello',
+        'clarinet', 'oboe', 'ocarina', 'pan-flute', 'saxophone',
+        'trombone', 'trumpet',
+        'harmonica', 'steel-drums', 'timpani', 'tom-tom', 'vibraphone', 'xylophone'
+    ],
 
     setExt: function (newExt) {
         var i
@@ -52,18 +148,20 @@ let SampleLibrary = {
                 delete newT[f];
             };
             const promise = (rt, t, newT) => {
-                return new Promise((resolve) => {
-                    rt[t.instruments[i]] = new Tone.Sampler(
-                        newT, {
-                            baseUrl: t.baseUrl + t.instruments[i] + "/",
-                            'release' : 1,
-                            'onload' : resolve
-                        }
-                    )
+                return new Promise((resolve, reject) => {
+                    try {
+                        rt[t.instruments[i]] = new Tone.Sampler(
+                            newT, {
+                                baseUrl: t.baseUrl + t.instruments[i] + "/",
+                                'release' : 1,
+                                'onload' : resolve
+                            }
+                        )
+                    } catch (e) { reject(e) }
                 })
             }
             for (i = 0; i <= t.instruments.length - 1; i++) {
-                var newT = this[t.instruments[i]];
+                var newT = (this.list.indexOf(t.instruments[i] !== -1) ? GENERATED_SOUNDS : this[t.instruments[i]]);
                 //Minimize the number of samples to load
                 if (this.minify === true || t.minify === true) {
                     var minBy = 1;
@@ -90,7 +188,7 @@ let SampleLibrary = {
 
             // if a single instrument name is passed...
         } else {
-            newT = this[t.instruments];
+            newT = (this.list.indexOf(t.instruments[i] !== -1) ? GENERATED_SOUNDS : this[t.instruments]);
 
             //Minimize the number of samples to load
             if (this.minify === true || t.minify === true) {
@@ -117,14 +215,16 @@ let SampleLibrary = {
 
             var s;
             const promise = () => {
-                return new Promise((resolve) => {
-                    s = new Tone.Sampler(
-                        newT, {
-                            baseUrl: t.baseUrl + t.instruments + "/",
-                            'release' : 1,
-                            'onload' : resolve
-                        }
-                    )
+                return new Promise((resolve, reject) => {
+                    try {
+                        s = new Tone.Sampler(
+                            newT, {
+                                baseUrl: t.baseUrl + t.instruments + "/",
+                                'release' : 1,
+                                'onload' : resolve
+                            }
+                        )
+                    } catch (e) { reject(e) }
                 })
             }
             await promise()
@@ -133,526 +233,6 @@ let SampleLibrary = {
         }
 
     },
-
-    'bass-electric': {
-        'A#2': 'As2.[mp3|ogg]',
-        'A#3': 'As3.[mp3|ogg]',
-        'A#4': 'As4.[mp3|ogg]',
-        'A#5': 'As5.[mp3|ogg]',
-        'C#2': 'Cs2.[mp3|ogg]',
-        'C#3': 'Cs3.[mp3|ogg]',
-        'C#4': 'Cs4.[mp3|ogg]',
-        'C#5': 'Cs5.[mp3|ogg]',
-        'E2': 'E2.[mp3|ogg]',
-        'E3': 'E3.[mp3|ogg]',
-        'E4': 'E4.[mp3|ogg]',
-        'E5': 'E5.[mp3|ogg]',
-        'G2': 'G2.[mp3|ogg]',
-        'G3': 'G3.[mp3|ogg]',
-        'G4': 'G4.[mp3|ogg]',
-        'G5': 'G5.[mp3|ogg]'
-    },
-
-    'bassoon': {
-        'A3': 'A3.[mp3|ogg]',
-        'C2': 'C2.[mp3|ogg]',
-        'C3': 'C3.[mp3|ogg]',
-        'C4': 'C4.[mp3|ogg]',
-        'E3': 'E3.[mp3|ogg]',
-        'G1': 'G1.[mp3|ogg]',
-        'G2': 'G2.[mp3|ogg]',
-        'G3': 'G3.[mp3|ogg]',
-        'A1': 'A1.[mp3|ogg]',
-        'A2': 'A2.[mp3|ogg]'
-
-    },
-
-    'cello': {
-        'E3': 'E3.[mp3|ogg]',
-        'E4': 'E4.[mp3|ogg]',
-        'F2': 'F2.[mp3|ogg]',
-        'F3': 'F3.[mp3|ogg]',
-        'F4': 'F4.[mp3|ogg]',
-        'F#3': 'Fs3.[mp3|ogg]',
-        'F#4': 'Fs4.[mp3|ogg]',
-        'G2': 'G2.[mp3|ogg]',
-        'G3': 'G3.[mp3|ogg]',
-        'G4': 'G4.[mp3|ogg]',
-        'G#2': 'Gs2.[mp3|ogg]',
-        'G#3': 'Gs3.[mp3|ogg]',
-        'G#4': 'Gs4.[mp3|ogg]',
-        'A2': 'A2.[mp3|ogg]',
-        'A3': 'A3.[mp3|ogg]',
-        'A4': 'A4.[mp3|ogg]',
-        'A#2': 'As2.[mp3|ogg]',
-        'A#3': 'As3.[mp3|ogg]',
-        'A#4': 'As4.[mp3|ogg]',
-        'B2': 'B2.[mp3|ogg]',
-        'B3': 'B3.[mp3|ogg]',
-        'B4': 'B4.[mp3|ogg]',
-        'C2': 'C2.[mp3|ogg]',
-        'C3': 'C3.[mp3|ogg]',
-        'C4': 'C4.[mp3|ogg]',
-        'C5': 'C5.[mp3|ogg]',
-        'C#3': 'Cs3.[mp3|ogg]',
-        'C#4': 'Cs4.[mp3|ogg]',
-        'D2': 'D2.[mp3|ogg]',
-        'D3': 'D3.[mp3|ogg]',
-        'D4': 'D4.[mp3|ogg]',
-        'D#2': 'Ds2.[mp3|ogg]',
-        'D#3': 'Ds3.[mp3|ogg]',
-        'D#4': 'Ds4.[mp3|ogg]',
-        'E2': 'E2.[mp3|ogg]'
-
-    },
-
-    'clarinet': {
-        'D3': 'D3.[mp3|ogg]',
-        'D4': 'D4.[mp3|ogg]',
-        'D5': 'D5.[mp3|ogg]',
-        'F2': 'F2.[mp3|ogg]',
-        'F3': 'F3.[mp3|ogg]',
-        'F4': 'F4.[mp3|ogg]',
-        'F#5': 'Fs5.[mp3|ogg]',
-        'A#2': 'As2.[mp3|ogg]',
-        'A#3': 'As3.[mp3|ogg]',
-        'A#4': 'As4.[mp3|ogg]',
-        'D2': 'D2.[mp3|ogg]'
-
-    },
-
-    'contrabass': {
-        'C1': 'C1.[mp3|ogg]',
-        'C#2': 'Cs2.[mp3|ogg]',
-        'D1': 'D1.[mp3|ogg]',
-        'E1': 'E1.[mp3|ogg]',
-        'E2': 'E2.[mp3|ogg]',
-        'F#0': 'Fs0.[mp3|ogg]',
-        'F#1': 'Fs1.[mp3|ogg]',
-        'G0': 'G0.[mp3|ogg]',
-        'G#1': 'Gs1.[mp3|ogg]',
-        'G#2': 'Gs2.[mp3|ogg]',
-        'A1': 'A1.[mp3|ogg]',
-        'A#0': 'As0.[mp3|ogg]',
-        'B2': 'B2.[mp3|ogg]'
-
-    },
-
-    'flute': {
-        'A5': 'A5.[mp3|ogg]',
-        'C3': 'C3.[mp3|ogg]',
-        'C4': 'C4.[mp3|ogg]',
-        'C5': 'C5.[mp3|ogg]',
-        'C6': 'C6.[mp3|ogg]',
-        'E3': 'E3.[mp3|ogg]',
-        'E4': 'E4.[mp3|ogg]',
-        'E5': 'E5.[mp3|ogg]',
-        'A3': 'A3.[mp3|ogg]',
-        'A4': 'A4.[mp3|ogg]'
-
-    },
-
-    'french-horn': {
-        'D2': 'D2.[mp3|ogg]',
-        'D4': 'D4.[mp3|ogg]',
-        'D#1': 'Ds1.[mp3|ogg]',
-        'F2': 'F2.[mp3|ogg]',
-        'F4': 'F4.[mp3|ogg]',
-        'G1': 'G1.[mp3|ogg]',
-        'A0': 'A0.[mp3|ogg]',
-        'A2': 'A2.[mp3|ogg]',
-        'C1': 'C1.[mp3|ogg]',
-        'C3': 'C3.[mp3|ogg]',
-
-    },
-
-    'guitar-acoustic': {
-        'F3': 'F3.[mp3|ogg]',
-        'F#1': 'Fs1.[mp3|ogg]',
-        'F#2': 'Fs2.[mp3|ogg]',
-        'F#3': 'Fs3.[mp3|ogg]',
-        'G1': 'G1.[mp3|ogg]',
-        'G2': 'G2.[mp3|ogg]',
-        'G3': 'G3.[mp3|ogg]',
-        'G#1': 'Gs1.[mp3|ogg]',
-        'G#2': 'Gs2.[mp3|ogg]',
-        'G#3': 'Gs3.[mp3|ogg]',
-        'A1': 'A1.[mp3|ogg]',
-        'A2': 'A2.[mp3|ogg]',
-        'A3': 'A3.[mp3|ogg]',
-        'A#1': 'As1.[mp3|ogg]',
-        'A#2': 'As2.[mp3|ogg]',
-        'A#3': 'As3.[mp3|ogg]',
-        'B1': 'B1.[mp3|ogg]',
-        'B2': 'B2.[mp3|ogg]',
-        'B3': 'B3.[mp3|ogg]',
-        'C2': 'C2.[mp3|ogg]',
-        'C3': 'C3.[mp3|ogg]',
-        'C4': 'C4.[mp3|ogg]',
-        'C#2': 'Cs2.[mp3|ogg]',
-        'C#3': 'Cs3.[mp3|ogg]',
-        'C#4': 'Cs4.[mp3|ogg]',
-        'D1': 'D1.[mp3|ogg]',
-        'D2': 'D2.[mp3|ogg]',
-        'D3': 'D3.[mp3|ogg]',
-        'D4': 'D4.[mp3|ogg]',
-        'D#1': 'Ds1.[mp3|ogg]',
-        'D#2': 'Ds2.[mp3|ogg]',
-        'D#3': 'Ds3.[mp3|ogg]',
-        'E1': 'E1.[mp3|ogg]',
-        'E2': 'E2.[mp3|ogg]',
-        'E3': 'E3.[mp3|ogg]',
-        'F1': 'F1.[mp3|ogg]',
-        'F2': 'F2.[mp3|ogg]'
-
-    },
-
-
-    'guitar-electric': {
-        'D#3': 'Ds3.[mp3|ogg]',
-        'D#4': 'Ds4.[mp3|ogg]',
-        'D#5': 'Ds5.[mp3|ogg]',
-        'E2': 'E2.[mp3|ogg]',
-        'F#2': 'Fs2.[mp3|ogg]',
-        'F#3': 'Fs3.[mp3|ogg]',
-        'F#4': 'Fs4.[mp3|ogg]',
-        'F#5': 'Fs5.[mp3|ogg]',
-        'A2': 'A2.[mp3|ogg]',
-        'A3': 'A3.[mp3|ogg]',
-        'A4': 'A4.[mp3|ogg]',
-        'A5': 'A5.[mp3|ogg]',
-        'C3': 'C3.[mp3|ogg]',
-        'C4': 'C4.[mp3|ogg]',
-        'C5': 'C5.[mp3|ogg]',
-        'C6': 'C6.[mp3|ogg]',
-        'C#2': 'Cs2.[mp3|ogg]'
-    },
-    
-    'guitar-nylon': {
-        'F#2': 'Fs2.[mp3|ogg]',
-        'F#3': 'Fs3.[mp3|ogg]',
-        'F#4': 'Fs4.[mp3|ogg]',
-        'F#5': 'Fs5.[mp3|ogg]',
-        'G3': 'G3.[mp3|ogg]',
-        'G5': 'G3.[mp3|ogg]',
-        'G#2': 'Gs2.[mp3|ogg]',
-        'G#4': 'Gs4.[mp3|ogg]',
-        'G#5': 'Gs5.[mp3|ogg]',
-        'A2': 'A2.[mp3|ogg]',
-        'A3': 'A3.[mp3|ogg]',
-        'A4': 'A4.[mp3|ogg]',
-        'A5': 'A5.[mp3|ogg]',
-        'A#5': 'As5.[mp3|ogg]',
-        'B1': 'B1.[mp3|ogg]',
-        'B2': 'B2.[mp3|ogg]',
-        'B3': 'B3.[mp3|ogg]',
-        'B4': 'B4.[mp3|ogg]',
-        'C#3': 'Cs3.[mp3|ogg]',
-        'C#4': 'Cs4.[mp3|ogg]',
-        'C#5': 'Cs5.[mp3|ogg]',
-        'D2': 'D2.[mp3|ogg]',
-        'D3': 'D3.[mp3|ogg]',
-        'D5': 'D5.[mp3|ogg]',
-        'D#4': 'Ds4.[mp3|ogg]',
-        'E2': 'E2.[mp3|ogg]',
-        'E3': 'E3.[mp3|ogg]',
-        'E4': 'E4.[mp3|ogg]',
-        'E5': 'E5.[mp3|ogg]'
-    },
-
-
-    'harmonium': {
-        'C2': 'C2.[mp3|ogg]',
-        'C3': 'C3.[mp3|ogg]',
-        'C4': 'C4.[mp3|ogg]',
-        'C5': 'C5.[mp3|ogg]',
-        'C#2': 'Cs2.[mp3|ogg]',
-        'C#3': 'Cs3.[mp3|ogg]',
-        'C#4': 'Cs4.[mp3|ogg]',
-        'C#5': 'Cs5.[mp3|ogg]',
-        'D2': 'D2.[mp3|ogg]',
-        'D3': 'D3.[mp3|ogg]',
-        'D4': 'D4.[mp3|ogg]',
-        'D5': 'D5.[mp3|ogg]',
-        'D#2': 'Ds2.[mp3|ogg]',
-        'D#3': 'Ds3.[mp3|ogg]',
-        'D#4': 'Ds4.[mp3|ogg]',
-        'E2': 'E2.[mp3|ogg]',
-        'E3': 'E3.[mp3|ogg]',
-        'E4': 'E4.[mp3|ogg]',
-        'F2': 'F2.[mp3|ogg]',
-        'F3': 'F3.[mp3|ogg]',
-        'F4': 'F4.[mp3|ogg]',
-        'F#2': 'Fs2.[mp3|ogg]',
-        'F#3': 'Fs3.[mp3|ogg]',
-        'G2': 'G2.[mp3|ogg]',
-        'G3': 'G3.[mp3|ogg]',
-        'G4': 'G4.[mp3|ogg]',
-        'G#2': 'Gs2.[mp3|ogg]',
-        'G#3': 'Gs3.[mp3|ogg]',
-        'G#4': 'Gs4.[mp3|ogg]',
-        'A2': 'A2.[mp3|ogg]',
-        'A3': 'A3.[mp3|ogg]',
-        'A4': 'A4.[mp3|ogg]',
-        'A#2': 'As2.[mp3|ogg]',
-        'A#3': 'As3.[mp3|ogg]',
-        'A#4': 'As4.[mp3|ogg]'
-    },
-
-    'harp': {
-        'C5': 'C5.[mp3|ogg]',
-        'D2': 'D2.[mp3|ogg]',
-        'D4': 'D4.[mp3|ogg]',
-        'D6': 'D6.[mp3|ogg]',
-        'D7': 'D7.[mp3|ogg]',
-        'E1': 'E1.[mp3|ogg]',
-        'E3': 'E3.[mp3|ogg]',
-        'E5': 'E5.[mp3|ogg]',
-        'F2': 'F2.[mp3|ogg]',
-        'F4': 'F4.[mp3|ogg]',
-        'F6': 'F6.[mp3|ogg]',
-        'F7': 'F7.[mp3|ogg]',
-        'G1': 'G1.[mp3|ogg]',
-        'G3': 'G3.[mp3|ogg]',
-        'G5': 'G5.[mp3|ogg]',
-        'A2': 'A2.[mp3|ogg]',
-        'A4': 'A4.[mp3|ogg]',
-        'A6': 'A6.[mp3|ogg]',
-        'B1': 'B1.[mp3|ogg]',
-        'B3': 'B3.[mp3|ogg]',
-        'B5': 'B5.[mp3|ogg]',
-        'B6': 'B6.[mp3|ogg]',
-        'C3': 'C3.[mp3|ogg]'
-
-    },
-
-    'organ': {
-        'C3': 'C3.[mp3|ogg]',
-        'C4': 'C4.[mp3|ogg]',
-        'C5': 'C5.[mp3|ogg]',
-        'C6': 'C6.[mp3|ogg]',
-        'D#1': 'Ds1.[mp3|ogg]',
-        'D#2': 'Ds2.[mp3|ogg]',
-        'D#3': 'Ds3.[mp3|ogg]',
-        'D#4': 'Ds4.[mp3|ogg]',
-        'D#5': 'Ds5.[mp3|ogg]',
-        'F#1': 'Fs1.[mp3|ogg]',
-        'F#2': 'Fs2.[mp3|ogg]',
-        'F#3': 'Fs3.[mp3|ogg]',
-        'F#4': 'Fs4.[mp3|ogg]',
-        'F#5': 'Fs5.[mp3|ogg]',
-        'A1': 'A1.[mp3|ogg]',
-        'A2': 'A2.[mp3|ogg]',
-        'A3': 'A3.[mp3|ogg]',
-        'A4': 'A4.[mp3|ogg]',
-        'A5': 'A5.[mp3|ogg]',
-        'C1': 'C1.[mp3|ogg]',
-        'C2': 'C2.[mp3|ogg]'
-    },
-
-    'piano': {
-        'A0': 'A0.[mp3|ogg]',
-        'A1': 'A1.[mp3|ogg]',
-        'A2': 'A2.[mp3|ogg]',
-        'A3': 'A3.[mp3|ogg]',
-        'A4': 'A4.[mp3|ogg]',
-        'A5': 'A5.[mp3|ogg]',
-        'A6': 'A6.[mp3|ogg]',
-        'A#0': 'As0.[mp3|ogg]',
-        'A#1': 'As1.[mp3|ogg]',
-        'A#2': 'As2.[mp3|ogg]',
-        'A#3': 'As3.[mp3|ogg]',
-        'A#4': 'As4.[mp3|ogg]',
-        'A#5': 'As5.[mp3|ogg]',
-        'A#6': 'As6.[mp3|ogg]',
-        'B0': 'B0.[mp3|ogg]',
-        'B1': 'B1.[mp3|ogg]',
-        'B2': 'B2.[mp3|ogg]',
-        'B3': 'B3.[mp3|ogg]',
-        'B4': 'B4.[mp3|ogg]',
-        'B5': 'B5.[mp3|ogg]',
-        'B6': 'B6.[mp3|ogg]',
-        'C0': 'C0.[mp3|ogg]',
-        'C1': 'C1.[mp3|ogg]',
-        'C2': 'C2.[mp3|ogg]',
-        'C3': 'C3.[mp3|ogg]',
-        'C4': 'C4.[mp3|ogg]',
-        'C5': 'C5.[mp3|ogg]',
-        'C6': 'C6.[mp3|ogg]',
-        'C7': 'C7.[mp3|ogg]',
-        'C#0': 'Cs0.[mp3|ogg]',
-        'C#1': 'Cs1.[mp3|ogg]',
-        'C#2': 'Cs2.[mp3|ogg]',
-        'C#3': 'Cs3.[mp3|ogg]',
-        'C#4': 'Cs4.[mp3|ogg]',
-        'C#5': 'Cs5.[mp3|ogg]',
-        'C#6': 'Cs6.[mp3|ogg]',
-        'D0': 'D0.[mp3|ogg]',
-        'D1': 'D1.[mp3|ogg]',
-        'D2': 'D2.[mp3|ogg]',
-        'D3': 'D3.[mp3|ogg]',
-        'D4': 'D4.[mp3|ogg]',
-        'D5': 'D5.[mp3|ogg]',
-        'D6': 'D6.[mp3|ogg]',
-        'D#0': 'Ds0.[mp3|ogg]',
-        'D#1': 'Ds1.[mp3|ogg]',
-        'D#2': 'Ds2.[mp3|ogg]',
-        'D#3': 'Ds3.[mp3|ogg]',
-        'D#4': 'Ds4.[mp3|ogg]',
-        'D#5': 'Ds5.[mp3|ogg]',
-        'D#6': 'Ds6.[mp3|ogg]',
-        'E0': 'E0.[mp3|ogg]',
-        'E1': 'E1.[mp3|ogg]',
-        'E2': 'E2.[mp3|ogg]',
-        'E3': 'E3.[mp3|ogg]',
-        'E4': 'E4.[mp3|ogg]',
-        'E5': 'E5.[mp3|ogg]',
-        'E6': 'E6.[mp3|ogg]',
-        'F0': 'F0.[mp3|ogg]',
-        'F1': 'F1.[mp3|ogg]',
-        'F2': 'F2.[mp3|ogg]',
-        'F3': 'F3.[mp3|ogg]',
-        'F4': 'F4.[mp3|ogg]',
-        'F5': 'F5.[mp3|ogg]',
-        'F6': 'F6.[mp3|ogg]',
-        'F#0': 'Fs0.[mp3|ogg]',
-        'F#1': 'Fs1.[mp3|ogg]',
-        'F#2': 'Fs2.[mp3|ogg]',
-        'F#3': 'Fs3.[mp3|ogg]',
-        'F#4': 'Fs4.[mp3|ogg]',
-        'F#5': 'Fs5.[mp3|ogg]',
-        'F#6': 'Fs6.[mp3|ogg]',
-        'G0': 'G0.[mp3|ogg]',
-        'G1': 'G1.[mp3|ogg]',
-        'G2': 'G2.[mp3|ogg]',
-        'G3': 'G3.[mp3|ogg]',
-        'G4': 'G4.[mp3|ogg]',
-        'G5': 'G5.[mp3|ogg]',
-        'G6': 'G6.[mp3|ogg]',
-        'G#0': 'Gs0.[mp3|ogg]',
-        'G#1': 'Gs1.[mp3|ogg]',
-        'G#2': 'Gs2.[mp3|ogg]',
-        'G#3': 'Gs3.[mp3|ogg]',
-        'G#4': 'Gs4.[mp3|ogg]',
-        'G#5': 'Gs5.[mp3|ogg]',
-        'G#6': 'Gs6.[mp3|ogg]'
-    },
-
-    'saxophone': {
-        'D#4': 'Ds4.[mp3|ogg]',
-        'E2': 'E2.[mp3|ogg]',
-        'E3': 'E3.[mp3|ogg]',
-        'E4': 'E4.[mp3|ogg]',
-        'F2': 'F2.[mp3|ogg]',
-        'F3': 'F3.[mp3|ogg]',
-        'F4': 'F4.[mp3|ogg]',
-        'F#2': 'Fs2.[mp3|ogg]',
-        'F#3': 'Fs3.[mp3|ogg]',
-        'F#4': 'Fs4.[mp3|ogg]',
-        'G2': 'G2.[mp3|ogg]',
-        'G3': 'G3.[mp3|ogg]',
-        'G4': 'G4.[mp3|ogg]',
-        'G#2': 'Gs2.[mp3|ogg]',
-        'G#3': 'Gs3.[mp3|ogg]',
-        'G#4': 'Gs4.[mp3|ogg]',
-        'A3': 'A3.[mp3|ogg]',
-        'A4': 'A4.[mp3|ogg]',
-        'A#2': 'As2.[mp3|ogg]',
-        'A#3': 'As3.[mp3|ogg]',
-        'B2': 'B2.[mp3|ogg]',
-        'B3': 'B3.[mp3|ogg]',
-        'C3': 'C3.[mp3|ogg]',
-        'C4': 'C4.[mp3|ogg]',
-        'C#2': 'Cs2.[mp3|ogg]',
-        'C#3': 'Cs3.[mp3|ogg]',
-        'C#4': 'Cs4.[mp3|ogg]',
-        'D2': 'D2.[mp3|ogg]',
-        'D3': 'D3.[mp3|ogg]',
-        'D4': 'D4.[mp3|ogg]',
-        'D#2': 'Ds2.[mp3|ogg]',
-        'D#3': 'Ds3.[mp3|ogg]'
-
-    },
-
-    'trombone': {
-        'A#2': 'As2.[mp3|ogg]',
-        'C2': 'C2.[mp3|ogg]',
-        'C3': 'C3.[mp3|ogg]',
-        'C#1': 'Cs1.[mp3|ogg]',
-        'C#3': 'Cs3.[mp3|ogg]',
-        'D2': 'D2.[mp3|ogg]',
-        'D3': 'D3.[mp3|ogg]',
-        'D#1': 'Ds1.[mp3|ogg]',
-        'D#2': 'Ds2.[mp3|ogg]',
-        'D#3': 'Ds3.[mp3|ogg]',
-        'F1': 'F1.[mp3|ogg]',
-        'F2': 'F2.[mp3|ogg]',
-        'F3': 'F3.[mp3|ogg]',
-        'G#1': 'Gs1.[mp3|ogg]',
-        'G#2': 'Gs2.[mp3|ogg]',
-        'A#0': 'As0.[mp3|ogg]',
-        'A#1': 'As1.[mp3|ogg]'
-
-    },
-
-    'trumpet': {
-        'C5': 'C5.[mp3|ogg]',
-        'D4': 'D4.[mp3|ogg]',
-        'D#3': 'Ds3.[mp3|ogg]',
-        'F2': 'F2.[mp3|ogg]',
-        'F3': 'F3.[mp3|ogg]',
-        'F4': 'F4.[mp3|ogg]',
-        'G3': 'G3.[mp3|ogg]',
-        'A2': 'A2.[mp3|ogg]',
-        'A4': 'A4.[mp3|ogg]',
-        'A#3': 'As3.[mp3|ogg]',
-        'C3': 'C3.[mp3|ogg]'
-
-    },
-
-    'tuba': {
-        'A#1': 'As1.[mp3|ogg]',
-        'A#2': 'As2.[mp3|ogg]',
-        'D2': 'D2.[mp3|ogg]',
-        'D3': 'D3.[mp3|ogg]',
-        'D#1': 'Ds1.[mp3|ogg]',
-        'F0': 'F0.[mp3|ogg]',
-        'F1': 'F1.[mp3|ogg]',
-        'F2': 'F2.[mp3|ogg]',
-        'A#0': 'As0.[mp3|ogg]'
-
-    },
-
-    'violin': {
-        'A3': 'A3.[mp3|ogg]',
-        'A4': 'A4.[mp3|ogg]',
-        'A5': 'A5.[mp3|ogg]',
-        'A6': 'A6.[mp3|ogg]',
-        'C4': 'C4.[mp3|ogg]',
-        'C5': 'C5.[mp3|ogg]',
-        'C6': 'C6.[mp3|ogg]',
-        'C7': 'C7.[mp3|ogg]',
-        'E4': 'E4.[mp3|ogg]',
-        'E5': 'E5.[mp3|ogg]',
-        'E6': 'E6.[mp3|ogg]',
-        'G4': 'G4.[mp3|ogg]',
-        'G5': 'G5.[mp3|ogg]',
-        'G6': 'G6.[mp3|ogg]'
-        
-    },
-
-    'xylophone': {
-        'C7': 'C7.[mp3|ogg]',
-        'G3': 'G3.[mp3|ogg]',
-        'G4': 'G4.[mp3|ogg]',
-        'G5': 'G5.[mp3|ogg]',
-        'G6': 'G6.[mp3|ogg]',
-        'C4': 'C4.[mp3|ogg]',
-        'C5': 'C5.[mp3|ogg]',
-        'C6': 'C6.[mp3|ogg]'
-
-    }
-
-
+    // CUSTOM INSTRUMENTS HERE
 }
 export default SampleLibrary;

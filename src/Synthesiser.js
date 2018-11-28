@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import Tone from 'tone'
 
 import readTrack from './tools/playback/'
-import SampleLibrary from './tools/instrument'
+import SampleLibrary, { defaultInstrument } from './tools/instrument'
 import PauseSymbol from './res/PauseIcon'
 import PlaySymbol from './res/PlayIcon'
 import StopSymbol from './res/StopIcon'
@@ -30,7 +30,7 @@ export default class SynthesizerComponent extends Component {
   componentDidMount () {
     this.changeInstrument()
   }
-  changeInstrument = (instrument='piano') => {
+  changeInstrument = (instrument=defaultInstrument) => {
     Tone.Transport.stop()
     Tone.Transport.cancel()
     this.setState({ tracks: null, playback: false, loading: true }, () => {
@@ -150,7 +150,7 @@ export default class SynthesizerComponent extends Component {
         </span>
 
         <div className="box">
-          <select defaultValue={'piano'} onChange={(e) => this.changeInstrument(e.currentTarget.value)}>
+          <select defaultValue={defaultInstrument} onChange={(e) => this.changeInstrument(e.currentTarget.value)}>
             { SampleLibrary.list.map(x => <option key={x} value={x}>{x}</option> ) }
           </select>
         </div>

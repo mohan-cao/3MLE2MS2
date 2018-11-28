@@ -3,7 +3,7 @@ import StatefulEvent from "./StatefulEvent";
 export const OCTAVE_UP = 'UP'
 export const OCTAVE_DOWN = 'DOWN'
 export const DEFAULT_OCTAVE = 4
-export const MIN_OCTAVE = 1
+export const MIN_OCTAVE = 0
 export const MAX_OCTAVE = 8
 
 export default class OctaveEvent extends StatefulEvent {
