@@ -6,6 +6,10 @@
   color: black;
 }
 
+.Form-leftDiv .button {
+  font-size: 0.7em;
+}
+
 .Form-leftDiv {
   flex: 1;
   display: flex;
@@ -74,4 +78,5 @@
 }
 .Form-textResult {
   flex: 1;
+  resize: none;
 }

@@ -9,6 +9,8 @@ import StopSymbol from './res/StopIcon'
 import LoadingSymbol from './res/AudioIcon'
 
 import './Synthesiser.css'
+import { Button, Select, MenuItem, OutlinedInput, FormLabel } from '@material-ui/core'
+import { Slider } from '@material-ui/lab'
 
 /**
  * The most awful component I've ever made.
@@ -25,6 +27,7 @@ export default class SynthesizerComponent extends Component {
       playback: false,
       divisions: 0,
       loading: true,
+      instrument: defaultInstrument,
     }
   }
   componentDidMount () {
@@ -33,13 +36,15 @@ export default class SynthesizerComponent extends Component {
   changeInstrument = (instrument=defaultInstrument) => {
     Tone.Transport.stop()
     Tone.Transport.cancel()
-    this.setState({ tracks: null, playback: false, loading: true }, () => {
+    this.setState({ instrument: instrument, tracks: null, playback: false, loading: true }, () => {
       SampleLibrary.load({ instruments: instrument }).then(x => {
         console.log("Loaded " + instrument)
+        let meter = new Tone.Meter()
         this.setState({
-          synths: x.toMaster(),
+          synths: x.connect(meter).toMaster(),
           loading: false,
         })
+        window.meter = meter
       })
     })
     
@@ -73,7 +78,6 @@ export default class SynthesizerComponent extends Component {
     Tone.Transport.scheduleRepeat(() => {
       const seconds = Tone.Transport.seconds
       this.setState({ elapsedTime: seconds });
-      this.slider.value = seconds * ((this.state.divisions && this.state.divisions < 1) ? 1/this.state.divisions : 1)
     }, 1, 0);
     Tone.Transport.schedule(() => {
       this.setState({ playback: false, elapsedTime: 0 })
@@ -109,51 +113,54 @@ export default class SynthesizerComponent extends Component {
   }
   render() {
     const { tracks } = this.props
-    const { playback, divisions, duration, elapsedTime, loading } = this.state
+    const { playback, divisions, duration, elapsedTime, loading, instrument } = this.state
     const multiplier = (divisions && divisions < 1) ? 1/divisions : 1
     const disabled = !tracks || !tracks.length || loading
 
     let playbackBar = (
-      <div style={{ display: 'inline-block', verticalAlign: 'top', marginRight: 10 }}><input className='synthesiser-range'
-        ref={(slider) => { this.slider = slider }}
-        type="range"
-        name="points"
-        onChange={(e) => this.seek(e.currentTarget.value / multiplier)}
-        disabled={disabled}
-        min="0" max={ (duration) ? duration * multiplier : 0 } step={ (divisions) ? divisions * multiplier : 0 } /></div>
+      <div style={{ display: 'inline-block', marginRight: 10 }}>
+        <Slider
+          color="secondary"
+          style={{ width: '4em' }}
+          value={elapsedTime * multiplier}
+          onChange={(e, val) => this.seek(val / multiplier)}
+          disabled={disabled}
+          min={0} max={ (duration) ? duration * multiplier : 0 } step={ (divisions) ? divisions * multiplier : 0 } />
+      </div>
     )
 
     return (
       <div className="Synthesiser">
         {
           (loading) ?
-          <button className="non-clickable margin-right-10" disabled={true}><LoadingSymbol style={{ height: '1em', marginRight: '0.3em', fill: 'currentColor' }} alt='Loading' />Loading</button> :
+          <Button style={{ marginRight: '1em' }} variant="outlined" color="primary" disabled={true}><LoadingSymbol style={{ height: '1em', fill: 'currentColor', marginRight: '0.3em' }} alt='Loading' />Loading</Button> :
           <div style={{ display: 'inline-block' }}>
-            <button className="clickable" onClick={this.togglePlayback} disabled={disabled}>
+            <Button style={{ height: '2em' }} variant="outlined" color="secondary" onClick={this.togglePlayback} disabled={disabled}>
               {
                 ((playback==='started') ?
                 <PauseSymbol style={{ height: '1em', fill: 'currentColor' }} /> :
                 <PlaySymbol style={{ height: '1em', fill: 'currentColor' }} />)
               }
-            </button>
+            </Button>
 
-            <button className="clickable margin-right-10" onClick={this.stopPlayback} disabled={disabled}>
+            <Button style={{ marginRight: '1em', height: '2em' }} variant="outlined" color="secondary" onClick={this.stopPlayback} disabled={disabled}>
               <StopSymbol style={{ height: '1em', fill: 'currentColor' }} />
-            </button>
+            </Button>
           </div>
         }
         
         { playbackBar }
-
-        <span className="orange-text" style={{ verticalAlign: 'middle', fontSize: '0.7em', lineHeight: '0.7em', marginRight: 10 }}>
+        
+        <FormLabel disabled={loading} color="grey" style={{ display: 'inline-block', marginRight: 10 }}>
           {`${Math.floor(elapsedTime/60)}:${('0'+Math.floor(elapsedTime)%60).slice(-2)}/${Math.floor(duration/60)}:${('0'+Math.floor(duration)%60).slice(-2)}`}
-        </span>
+        </FormLabel>
 
-        <div className="box">
-          <select defaultValue={defaultInstrument} onChange={(e) => this.changeInstrument(e.currentTarget.value)}>
-            { SampleLibrary.list.map(x => <option key={x} value={x}>{x}</option> ) }
-          </select>
-        </div>
+        <Select style={{ height: '2em' }}
+          input={<OutlinedInput labelWidth={0} />}
+          color="primary" disabled={loading}
+          value={instrument} onChange={(e) => this.changeInstrument(e.target.value)}>
+          { SampleLibrary.list.map(x => <MenuItem key={x} value={x}>{x}</MenuItem> ) }
+        </Select>
 
       </div>
     )

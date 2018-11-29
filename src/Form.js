@@ -11,6 +11,7 @@ import convertMS2JSONTo3MLE, { convertJSONToTrackArray } from './tools/json2mml'
 
 import './Form.css';
 import SynthesizerComponent from './Synthesiser';
+import { Button, Typography } from '@material-ui/core';
 
 const MMLHandler = (event) => {
   let {result, length} = convert3MLEToJSON(event.target.result);
@@ -90,31 +91,30 @@ export default class Form extends Component {
     return (
       <form className={"Form-div " + this.props.className}>
         <div className="Form-leftDiv">
-          <div className="buttonDiv"><label className="label" htmlFor="file-input">Select any MML/MS2MML file</label></div>
-          <div><p className="arrowDown">&#x25bc;</p></div>
-          <div><input name="file-input" id="file-input" type="file" accept={allValidMMLs} onChange={this.uploadFile} /></div>
+          <Button className="button" variant="outlined" color="primary" component="label">Select any MML/MS2MML file<input name="file-input" id="file-input" type="file" accept={allValidMMLs} onChange={this.uploadFile} /></Button>
+          <div><Typography color="primary">&#x25bc;</Typography></div>
           <div className="buttonDiv">
-            <button className="label" onClick={this.convert} disabled={!this.state.file}>
+            <Button className="button" variant="outlined" color="primary" onClick={this.convert} disabled={!this.state.file}>
               {(changed) ? <RefreshIcon style={{ height: '0.8em', fill: 'currentColor', paddingRight: 10 }} /> : <div />}
               {buttonMsg}
-            </button>
+            </Button>
           </div>
           {
             (download) ? 
             <div>
-              <div><p className="arrowDown">&#x25bc;</p></div>
-              <div className="buttonDiv"><button className="label" onClick={this.download}>{downloadMsg}</button></div>
-              { (this.state.file && this.state.file.type === mmlExtension) ? <p style={{ fontSize: '0.5em' }}>Max. 10 tracks allowed</p> : <div />}
+              <div><Typography color="primary">&#x25bc;</Typography></div>
+              <Button className="button" variant="outlined" color="secondary" onClick={this.download}>{downloadMsg}</Button>
+              <Typography variant="body1">{ (this.state.file && this.state.file.type === mmlExtension) ? 'Max. 10 tracks allowed' : ''}</Typography>
             </div>
             : <div />
           }
         </div>
         <div className="Form-rightDiv">
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <h1 style={{ marginRight: 20 }}>Preview</h1>
+            <Typography variant="h1" style={{ marginRight: 20, fontSize: '2em' }}>Preview</Typography>
         { (mml && mml.length) ? <SynthesizerComponent tracks={mml} /> : <div /> }
           </div>
-          <textarea className="Form-textResult" value={result} readOnly/>
+          <textarea className="Form-textResult" value={result} readOnly />
         </div>
       </form>
     )
