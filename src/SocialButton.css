@@ -1,0 +1,60 @@
+.SocialButton .btn,
+.SocialButton .btn:before,
+.SocialButton .btn .fa {
+  transition: all 0.35s;
+  transition-timing-function: cubic-bezier(0.31, -0.105, 0.43, 1.59);
+}
+.SocialButton {
+  height: 60px;
+  padding: 10px;
+}
+.SocialButton .btn:before {
+  top: 90%;
+  left: -110%;
+}
+.SocialButton .btn .fa {
+  -webkit-transform: scale(0.8);
+          transform: scale(0.8);
+}
+.SocialButton .btn.github:before {
+  background-color: #ff9800;
+}
+.SocialButton .btn.github .fa {
+  color: #ff9800;
+}
+.SocialButton .btn:focus:before,
+.SocialButton .btn:hover:before {
+  top: -10%;
+  left: -10%;
+}
+.SocialButton .btn:focus .fa,
+.SocialButton .btn:hover .fa {
+  color: #fff;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+.SocialButton .btn {
+  display: inline-block;
+  background-color: #fff;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: 28%;
+  box-shadow: 0 5px 15px -5px rgba(0,0,0,0.1);
+  opacity: 0.99;
+}
+.SocialButton .btn:before {
+  content: '';
+  width: 120%;
+  height: 120%;
+  position: absolute;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+.SocialButton .btn .fa {
+  font-size: 38px;
+  vertical-align: middle;
+}

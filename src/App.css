@@ -3,9 +3,15 @@
 }
 
 .App-logo {
-  animation: App-logo-wobble infinite alternate-reverse 1s ease-in-out;
   height: 12vmin;
   padding-right: 10px;
+}
+.App-logo.bob {
+  animation: App-logo-wobble infinite alternate-reverse 1s cubic-bezier(0.73, 0.43, 0.41, 0.79);
+}
+.App-logo.flip {
+  animation: App-logo-flip 1 running 1s cubic-bezier(0.47, 0, 0.8, 0.94);
+  animation-fill-mode: forwards;
 }
 
 .App-bg {
@@ -42,4 +48,12 @@
 @keyframes App-logo-wobble {
   from { transform: translate(0, 0px) scaleY(1); }
   to { transform: translate(0, -5px) scaleY(1.05);}
+}
+
+@keyframes App-logo-flip {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  60% { transform: translate(0, -50px) rotate(-216deg); }
+  65% { transform: translate(0, -50px) rotate(-230deg); }
+  90% { transform: translate(0, 10px) rotate(-360deg); }
+  100% { transform: translate(0, 0) rotate(-360deg); }
 }
