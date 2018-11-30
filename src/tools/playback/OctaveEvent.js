@@ -23,8 +23,8 @@ export default class OctaveEvent extends StatefulEvent {
     )
   }
   run(state) {
-    if (this.value === OCTAVE_UP && state.octave < 8) state.octave++
-    else if (this.value === OCTAVE_DOWN && state.octave > 1) state.octave--
+    if (this.value === OCTAVE_UP && state.octave < MAX_OCTAVE) state.octave++
+    else if (this.value === OCTAVE_DOWN && state.octave > MIN_OCTAVE) state.octave--
     else if (typeof this.value === 'number') state.octave = this.value
   }
 }
