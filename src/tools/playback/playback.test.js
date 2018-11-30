@@ -36,9 +36,9 @@ test('parse n notes', () => {
     new NoteEvent('A#', null, false, false, 4),
   ])
   expect(tones).toEqual([
-    {"duration": 4, "note": "E5", "time": 0, "velocity": 8},
-    {"duration": 2, "note": "C4", "time": 4, "velocity": 8},
-    {"duration": 2, "note": "A#4", "time": 6, "velocity": 8}
+    {"duration": 4, "note": "E5", "time": 0, "velocity": 8/15},
+    {"duration": 2, "note": "C4", "time": 4, "velocity": 8/15},
+    {"duration": 2, "note": "A#4", "time": 6, "velocity": 8/15}
   ])
 })
 
@@ -57,11 +57,11 @@ test('parse default (dance) notes', () => {
     new NoteEvent('C', null, true),
   ])
   expect(tones).toEqual([
-    {"duration": 3, "note": "A4", "time": 0, "velocity": 8},
-    {"duration": 3, "note": "A4", "time": 3, "velocity": 8},
-    {"duration": 1.5, "note": "B4", "time": 6, "velocity": 8},
-    {"duration": 1.5, "note": "A#4", "time": 7.5, "velocity": 8},
-    {"duration": 0.75, "note": "C4", "time": 9, "velocity": 8}
+    {"duration": 3, "note": "A4", "time": 0, "velocity": 8/15},
+    {"duration": 3, "note": "A4", "time": 3, "velocity": 8/15},
+    {"duration": 1.5, "note": "B4", "time": 6, "velocity": 8/15},
+    {"duration": 1.5, "note": "A#4", "time": 7.5, "velocity": 8/15},
+    {"duration": 0.75, "note": "C4", "time": 9, "velocity": 8/15}
   ])
 })
 
@@ -108,16 +108,16 @@ test('parse another normal, slightly broken track', () => {
     new NoteEvent('F#', null, true),
   ])
   expect(tones).toEqual([
-    {"duration": 0.5, "note": "G4", "time": 0.0625, "velocity": 8},
-    {"duration": 0.5, "note": "A4", "time": 0.5625, "velocity": 8},
-    {"duration": 0.5, "note": "F#4", "time": 1.0625, "velocity": 8},
-    {"duration": 0.21875, "note": "F#4", "time": 1.5625, "velocity": 8},
-    {"duration": 0.125, "note": "E4", "time": 1.8125, "velocity": 8},
-    {"duration": 0.125, "note": "F#4", "time": 1.9375, "velocity": 8},
-    {"duration": 0.375, "note": "G4", "time": 2.0625, "velocity": 8},
-    {"duration": 0.375, "note": "A4", "time": 2.4375, "velocity": 8},
-    {"duration": 0.25, "note": "B4", "time": 2.8125, "velocity": 8},
-    {"duration": 0.34375, "note": "A4", "time": 3.0625, "velocity": 8},
-    {"duration": 0.375, "note": "F#4", "time": 3.4375, "velocity": 8}
+    {"duration": 0.5, "note": "G4", "time": 0.0625, "velocity": 8/15},
+    {"duration": 0.5, "note": "A4", "time": 0.5625, "velocity": 8/15},
+    {"duration": 0.5, "note": "F#4", "time": 1.0625, "velocity": 8/15},
+    {"duration": 0.21875, "note": "F#4", "time": 1.5625, "velocity": 8/15},
+    {"duration": 0.125, "note": "E4", "time": 1.8125, "velocity": 8/15},
+    {"duration": 0.125, "note": "F#4", "time": 1.9375, "velocity": 8/15},
+    {"duration": 0.375, "note": "G4", "time": 2.0625, "velocity": 8/15},
+    {"duration": 0.375, "note": "A4", "time": 2.4375, "velocity": 8/15},
+    {"duration": 0.25, "note": "B4", "time": 2.8125, "velocity": 8/15},
+    {"duration": 0.34375, "note": "A4", "time": 3.0625, "velocity": 8/15},
+    {"duration": 0.375, "note": "F#4", "time": 3.4375, "velocity": 8/15}
   ])
 })
