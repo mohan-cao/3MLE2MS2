@@ -1,7 +1,7 @@
 {
   "main.css": "/3MLE2MS2/static/css/main.bb5e79f1.chunk.css",
-  "main.js": "/3MLE2MS2/static/js/main.b5205b66.chunk.js",
-  "main.js.map": "/3MLE2MS2/static/js/main.b5205b66.chunk.js.map",
+  "main.js": "/3MLE2MS2/static/js/main.697d9e5f.chunk.js",
+  "main.js.map": "/3MLE2MS2/static/js/main.697d9e5f.chunk.js.map",
   "static/js/1.95689332.chunk.js": "/3MLE2MS2/static/js/1.95689332.chunk.js",
   "static/js/1.95689332.chunk.js.map": "/3MLE2MS2/static/js/1.95689332.chunk.js.map",
   "runtime~main.js": "/3MLE2MS2/static/js/runtime~main.ea53a4ff.js",
@@ -10,6 +10,6 @@
   "static/media/mushroom.png": "/3MLE2MS2/static/media/mushroom.7f63adae.png",
   "static/media/bg2.jpg": "/3MLE2MS2/static/media/bg2.3fec2c14.jpg",
   "index.html": "/3MLE2MS2/index.html",
-  "precache-manifest.852928b8958030ae683dc787c5c07ab4.js": "/3MLE2MS2/precache-manifest.852928b8958030ae683dc787c5c07ab4.js",
+  "precache-manifest.ba4aa7f580b44aefe5cbc12596d82e2f.js": "/3MLE2MS2/precache-manifest.ba4aa7f580b44aefe5cbc12596d82e2f.js",
   "service-worker.js": "/3MLE2MS2/service-worker.js"
 }

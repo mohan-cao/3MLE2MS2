@@ -1,4 +1,4 @@
-import VolumeEvent, { DEFAULT_VOL as defaultVolume} from './VolumeEvent'
+import VolumeEvent, { DEFAULT_VOL as defaultVolume, MAX_VOL as maxVolume } from './VolumeEvent'
 import TempoEvent, { DEFAULT_TEMPO as defaultTempo, MML_PPQ } from './TempoEvent'
 import MeasureDivisionEvent, { DEFAULT_NOTE_DIVISION as defaultMDivision } from './MeasureDivisionEvent'
 import OctaveEvent, { DEFAULT_OCTAVE as defaultOctave } from './OctaveEvent'
@@ -85,7 +85,7 @@ export class State {
     this.octave = defaultOctave
     this.tempo = defaultTempo
     this.measureDivision = new MeasureDivisionEvent(defaultMDivision)
-    this.volume = defaultVolume
+    this.volume = defaultVolume / maxVolume
     this.previousNote = null
     this.rest = 0
     this.playables = [...playables]
