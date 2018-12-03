@@ -21,4 +21,7 @@ export default class MeasureDivisionEvent extends StatefulEvent {
   run(state) {
     state.measureDivision = this //(this.dotted) ? 2*this.value/3 : this.value;
   }
+  toString() {
+    return 'l' + this.value + (this.dotted ? '.' : '')
+  }
 }

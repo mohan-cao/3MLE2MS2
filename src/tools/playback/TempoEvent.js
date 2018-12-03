@@ -18,4 +18,7 @@ export default class TempoEvent extends StatefulEvent {
   run(state) {
     state.tempo = this.value
   }
+  toString() {
+    return 't' + this.value;
+  }
 }

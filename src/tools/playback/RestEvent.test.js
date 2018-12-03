@@ -24,3 +24,8 @@ test('deal with tie edge case', () => {
     new RestEvent(1, true),
   ])
 })
+
+test('converting back to string is working', () => {
+  const track = 'r1r1.r4r6r8r12r16r48r64r'
+  expect(functions.parseTrackToNoteObjects(track).join('')).toEqual(track)
+})

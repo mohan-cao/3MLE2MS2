@@ -13,4 +13,7 @@ export default class VolumeEvent extends StatefulEvent {
   run(state) {
     state.volume = this.value / MAX_VOL
   }
+  toString() {
+    return 'v' + this.value;
+  }
 }

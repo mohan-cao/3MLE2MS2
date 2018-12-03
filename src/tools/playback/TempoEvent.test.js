@@ -21,3 +21,8 @@ test('deal with tie edge case', () => {
     new TempoEvent(60),
   ])
 })
+
+test('converting back to string is working', () => {
+  const track = 't32t60t120t240t255'
+  expect(functions.parseTrackToNoteObjects(track).join('')).toEqual(track)
+})

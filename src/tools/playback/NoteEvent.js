@@ -2,6 +2,7 @@ import StatefulEvent from './StatefulEvent';
 import { noteToSeconds } from './playback';
 
 const mappings = { 0: "C", 1: "C#", 2: "D", 3: "D#", 4: "E", 5: "F", 6: "F#", 7: "G", 8: "G#", 9: "A", 10: "A#", 11: "B" }
+const reverseMapping = { "C": 0, "C#": 1, "D": 2, "D#": 3, "E": 4, "F": 5, "F#": 6, "G": 7, "G#": 8, "A": 9, "A#": 10, "B": 11 }
 const overrides = { "B#": "C", "Cb": "B", "E#": "F", "Fb": "E" }
 
 /**
@@ -12,6 +13,10 @@ const overrides = { "B#": "C", "Cb": "B", "E#": "F", "Fb": "E" }
 export const numberNoteToNote = (number) => {
   let octave = Math.floor(number / 12);
   return [mappings[number%12], octave]
+}
+
+export const noteToNumberNote = (note, octave) => {
+  return (octave * 12) + reverseMapping[note]
 }
 
 export default class NoteEvent extends StatefulEvent {
@@ -48,5 +53,10 @@ export default class NoteEvent extends StatefulEvent {
       // actually play the bloody note
       state.playNote(noteActual, noteSeconds)
     }
+  }
+  toString() {
+    const tied = (this.tied ? '&' : '')
+    if (this.octave) return tied + 'n' + noteToNumberNote(this.note, this.octave)
+    return tied + (this.note.toLowerCase() + (this.value ? this.value : '') + (this.dotted ? '.' : ''))
   }
 }

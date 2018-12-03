@@ -27,4 +27,16 @@ export default class OctaveEvent extends StatefulEvent {
     else if (this.value === OCTAVE_DOWN && state.octave > MIN_OCTAVE) state.octave--
     else if (typeof this.value === 'number') state.octave = this.value
   }
+  toString() {
+    switch(this.value) {
+      case OCTAVE_UP:
+      return '>'
+      case OCTAVE_DOWN:
+      return '<'
+      case null:
+      return ''
+      default:
+      return 'o' + this.value
+    }
+  }
 }

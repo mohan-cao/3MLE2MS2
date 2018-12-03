@@ -18,4 +18,7 @@ export default class RestEvent extends StatefulEvent {
   run(state) {
     state.addRest(noteToSeconds(this, state.measureDivision, state.tempo))
   }
+  toString() {
+    return ((this.value) ? 'r' + this.value : 'r') + (this.dotted ? '.' : '')
+  }
 }

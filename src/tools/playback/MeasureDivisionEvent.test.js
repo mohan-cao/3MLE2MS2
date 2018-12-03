@@ -23,3 +23,8 @@ test('handle stupid error-ridden ties in front of the change', () => {
     new MeasureDivisionEvent(1)
   ])
 })
+
+test('converting back to string is working', () => {
+  const track = 'l1l1.l4l6l8l12l16l48l64'
+  expect(functions.parseTrackToNoteObjects(track).join('')).toEqual(track)
+})

@@ -18,3 +18,8 @@ test('deal with tie edge case', () => {
     new VolumeEvent(8),
   ])
 })
+
+test('converting back to string is working', () => {
+  const track = 'v0v8v15'
+  expect(functions.parseTrackToNoteObjects(track).join('')).toEqual(track)
+})

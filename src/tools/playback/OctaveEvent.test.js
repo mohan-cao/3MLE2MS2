@@ -20,3 +20,8 @@ test('handle stupid edge-case with ties', () => {
     new OctaveEvent(2),
   ])
 })
+
+test('converting back to string is working', () => {
+  const track = 'o0o1o8<>'
+  expect(functions.parseTrackToNoteObjects(track).join('')).toEqual(track)
+})

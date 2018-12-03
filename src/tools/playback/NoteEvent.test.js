@@ -26,3 +26,8 @@ test('parse accidentals', () => {
     new NoteEvent('G#', 12),
   ])
 })
+
+test('converting back to string is working', () => {
+  const track = 'a.bn60den65g'
+  expect(functions.parseTrackToNoteObjects(track).join('')).toEqual(track)
+})
