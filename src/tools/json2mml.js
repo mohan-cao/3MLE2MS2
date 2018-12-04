@@ -13,11 +13,10 @@ const filterCommentsAndCollapse = (text) => {
   .join('');
 }
 
-export default function convertJSONTo3MLE(json, settings={encoding: dencoding, title: dtitle, source: dsource}) {
+export function convertTrackArrayTo3MLE(tracks, settings={encoding: dencoding, title: dtitle, source: dsource}) {
   if (!settings.encoding) settings.encoding = dencoding;
   if (!settings.title) settings.title = dtitle;
   if (!settings.source) settings.source = dsource;
-  let tracks = convertJSONToTrackArray(json);
   let trackStrings = '';
   for (let i=0; i < tracks.length; i++) {
     trackStrings += `[Channel${i+1}]\n${tracks[i]}\n`;

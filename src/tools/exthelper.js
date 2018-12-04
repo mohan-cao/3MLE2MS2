@@ -7,7 +7,7 @@ export const ms2Extension = "ms2mml";
 
 export const getMMLExtension = (file) => {
   if (!file || !file.name) return
-  return [mmlExtension, ms2Extension].filter(x => x === file.name.split('.').slice(-1).toLowerCase())[0];
+  return [mmlExtension, ms2Extension].filter(x => x === file.name.split('.').slice(-1)[0].toLowerCase())[0];
 }
 export function getHandlerBuilder(mmlHandler, ms2Handler) {
   return function(type) {

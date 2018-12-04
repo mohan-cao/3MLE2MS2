@@ -58,12 +58,11 @@ export function convert3MLEToTrackArray(text) {
   return textArr;
 }
 
-export default function convert3MLEToJSON(text) {
+export function convertTrackArrayToJSON(tracks) {
   let newTemplate = JSON.parse(JSON.stringify(ms2mmlTemplate));
-  let textArr = convert3MLEToTrackArray(text);
   for (let i = 0; i < maxChannels; i++) {
-    if (i < textArr.length) deepValueSingleReplace(newTemplate, "#text", textArr[i]);
+    if (i < tracks.length) deepValueSingleReplace(newTemplate, "#text", tracks[i]);
     else deepValueSingleReplace(newTemplate, "#text", undefined);
   }
-  return {result: newTemplate, length: textArr.map(x => x.length).reduce((a,b) => a+b, 0)};
+  return {result: newTemplate, length: tracks.map(x => x.length).reduce((a,b) => a+b, 0)};
 }

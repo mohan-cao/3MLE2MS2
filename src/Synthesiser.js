@@ -11,6 +11,7 @@ import LoadingSymbol from './res/AudioIcon'
 import './Synthesiser.css'
 import { Button, Select, MenuItem, OutlinedInput, FormLabel } from '@material-ui/core'
 import { Slider } from '@material-ui/lab'
+import { halveTrackNotes } from './tools/notemanipulator';
 
 /**
  * The most awful component I've ever made.
@@ -29,6 +30,7 @@ export default class SynthesizerComponent extends Component {
       loading: true,
       instrument: defaultInstrument,
     }
+    window.halfNote = halveTrackNotes
   }
   componentDidMount () {
     this.changeInstrument()
