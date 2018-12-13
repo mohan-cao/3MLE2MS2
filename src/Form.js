@@ -136,9 +136,12 @@ export default class Form extends Component {
             <div>
               <div><Typography color="primary">&#x25bc;</Typography></div>
               <Button className="button" variant="outlined" color="secondary" onClick={this.download}>{downloadMsg}</Button>
-              { (length > 10000) ? <Typography color="error" variant="body1"><WarningIcon style={{ fontSize: '1em'}}/>{'This song is unplayable in-game with ' + Math.round(length/1000) + 'K characters'}</Typography> : '' }
-              { (file && file.type === mmlExtension) ? <Typography variant="body1"><InfoIcon style={{ fontSize: '1em'}}/>Maximum 10 tracks allowed</Typography> : ''}
-              { (errors) ? errors.map(x => <Typography color="error" variant="body1" key={x}><WarningIcon style={{ fontSize: '1em'}}/>{x}</Typography>) : ''}
+              { (length > 10000) ?
+                <Typography color="error" variant="body1"><WarningIcon style={{ fontSize: '1em', marginRight: 5 }}/>{'This song is unplayable in-game with ' + Math.round(length/1000) + 'K characters'}</Typography> :
+                <Typography variant="body1"><InfoIcon style={{ fontSize: '1em', marginRight: 5 }}/>Total length: {length} characters</Typography>
+              }
+              { (file && file.type === mmlExtension) ? <Typography variant="body1"><InfoIcon style={{ fontSize: '1em', marginRight: 5 }}/>Maximum 10 tracks allowed</Typography> : ''}
+              { (errors) ? errors.map(x => <Typography color="error" variant="body1" key={x}><WarningIcon style={{ fontSize: '1em', marginRight: 5 }}/>{x}</Typography>) : ''}
             </div>
             : <div />
           }
