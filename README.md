@@ -5,6 +5,7 @@
 <a href="https://travis-ci.org/mohan-cao/3MLE2MS2"><img style="display:inline-block;" src="https://travis-ci.org/mohan-cao/3MLE2MS2.svg?branch=master" alt="Build status"></a>
 <a href="https://github.com/mohan-cao/3MLE2MS2/issues"><img style="display:inline-block;" src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat" alt="Contributions welcome"></a>
 <img style="display:inline-block;" src="http://hits.dwyl.io/mohan-cao/3MLE2MS2.svg" alt="Hit counter">
+<img style="display:inline-block;" src="https://img.shields.io/github/last-commit/mohan-cao/3mle2ms2.svg" alt="Last committed">
 </div>
 Convert seamlessly between 3MLE Music Macro Language and MapleStory 2 MML formats from an easy-to-use web app.
 
