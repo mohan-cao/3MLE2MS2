@@ -1,33 +1,10 @@
-import * as functions from './playback'
-
-import MeasureDivisionEvent from './MeasureDivisionEvent'
-import NoteEvent from './NoteEvent'
-import RestEvent from './RestEvent';
-
-test('dotted quarter measure division', () => {
-  expect(functions.noteToTicks(new MeasureDivisionEvent(4, true))).toBe(144)
-});
-
-test('dotted 8th measure division', () => {
-  expect(functions.noteToTicks(new MeasureDivisionEvent(8, '.'))).toBe(72)
-});
-
-test('full measure division', () => {
-  expect(functions.noteToTicks(new MeasureDivisionEvent(1))).toBe(384)
-});
-
-test('full measure note', () => {
-  expect(functions.noteToTicks(new NoteEvent("c", 1))).toBe(384)
-});
-
-test('full measure note seconds', () => {
-  expect(functions.noteToSeconds(new NoteEvent("c", 1), 4, 120)).toBe(2)
-});
+import { readTrackToNotes } from '.'
+import parseTrackToNoteObjects, { MeasureDivisionEvent, NoteEvent, RestEvent } from '../note-parser';
 
 test('parse n notes', () => {
   const track = 'l1n64&n64n48n58'
-  const noteObjs = functions.parseTrackToNoteObjects(track)
-  const tones = functions.readTrackToNotes(noteObjs)
+  const noteObjs = parseTrackToNoteObjects(track)
+  const tones = readTrackToNotes(noteObjs)
   expect(noteObjs).toEqual([
     new MeasureDivisionEvent(1),
     new NoteEvent('E', null, false, false, 5),
@@ -44,8 +21,8 @@ test('parse n notes', () => {
 
 test('parse default (dance) notes', () => {
   const track = 'l1.aa.l2.bn58l4c.'
-  const noteObjs = functions.parseTrackToNoteObjects(track)
-  const tones = functions.readTrackToNotes(noteObjs)
+  const noteObjs = parseTrackToNoteObjects(track)
+  const tones = readTrackToNotes(noteObjs)
   expect(noteObjs).toEqual([
     new MeasureDivisionEvent(1, true),
     new NoteEvent('A', null),
@@ -70,8 +47,8 @@ test('parse normal track', () => {
   18v7f19g20a21v8>c22d23e24v9f25g26a27v10>c28d29e30v11f31g32a33v12>c34d3
   5e36v13f37g38a39v14>c41d42e43f44v15g45a46g47f48e49d50c51<b52a53g54f55e
   56d57c58<b59a60g61f62e63dc1r4b4`
-  const noteObjs = functions.parseTrackToNoteObjects(track)
-  const tones = functions.readTrackToNotes(noteObjs)
+  const noteObjs = parseTrackToNoteObjects(track)
+  const tones = readTrackToNotes(noteObjs)
   expect(noteObjs.length).toBe(95)
   expect(tones).toEqual([{"duration": 2.25, "note": "A1", "time": 0, "velocity": 0.06666666666666667}, {"duration": 1, "note": "B1", "time": 2.25, "velocity": 0.06666666666666667}, {"duration": 0.6666666666666666, "note": "C2", "time": 3.25, "velocity": 0.06666666666666667}, {"duration": 0.5, "note": "D2", "time": 3.9166666666666665, "velocity": 0.06666666666666667}, {"duration": 0.03125, "note": "C2", "time": 4.416666666666666, "velocity": 0.13333333333333333}, {"duration": 0.3958333333333333, "note": "E2", "time": 4.447916666666666, "velocity": 0.13333333333333333}, {"duration":
   0.3333333333333333, "note": "F2", "time": 4.843749999999999, "velocity": 0.13333333333333333},
@@ -84,8 +61,8 @@ test('parse normal track', () => {
 
 test('parse another normal, slightly broken track', () => {
   const track = 'l4r32gaf+&l16f+.&f+64r64ef+l8g.a.ba&a32.r64f+.'
-  const noteObjs = functions.parseTrackToNoteObjects(track)
-  const tones = functions.readTrackToNotes(noteObjs)
+  const noteObjs = parseTrackToNoteObjects(track)
+  const tones = readTrackToNotes(noteObjs)
   expect(noteObjs).toEqual([
     new MeasureDivisionEvent(4),
     new RestEvent(32),

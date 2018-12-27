@@ -1,9 +1,9 @@
-import * as functions from './playback'
+import parseTrackToNoteObjects from '.'
 import OctaveEvent, {OCTAVE_UP, OCTAVE_DOWN} from './OctaveEvent'
 
 test('parse octave changes', () => {
   const track = 'o0o1o8o9<>'
-  expect(functions.parseTrackToNoteObjects(track)).toEqual([
+  expect(parseTrackToNoteObjects(track)).toEqual([
     new OctaveEvent(0),
     new OctaveEvent(1),
     new OctaveEvent(8),
@@ -15,7 +15,7 @@ test('parse octave changes', () => {
 
 test('handle stupid edge-case with ties', () => {
   const track = 'o0&o2'
-  expect(functions.parseTrackToNoteObjects(track)).toEqual([
+  expect(parseTrackToNoteObjects(track)).toEqual([
     new OctaveEvent(0),
     new OctaveEvent(2),
   ])
@@ -23,5 +23,5 @@ test('handle stupid edge-case with ties', () => {
 
 test('converting back to string is working', () => {
   const track = 'o0o1o8<>'
-  expect(functions.parseTrackToNoteObjects(track).join('')).toEqual(track)
+  expect(parseTrackToNoteObjects(track).join('')).toEqual(track)
 })

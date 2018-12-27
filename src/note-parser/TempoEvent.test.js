@@ -1,9 +1,9 @@
-import * as functions from './playback'
+import parseTrackToNoteObjects from '.'
 import TempoEvent from './TempoEvent'
 
 test('parse tempo changes', () => {
   const track = 't31t32t60t120t240t255t256'
-  expect(functions.parseTrackToNoteObjects(track)).toEqual([
+  expect(parseTrackToNoteObjects(track)).toEqual([
     new TempoEvent(120),
     new TempoEvent(32),
     new TempoEvent(60),
@@ -16,7 +16,7 @@ test('parse tempo changes', () => {
 
 test('deal with tie edge case', () => {
   const track = 't32&t60'
-  expect(functions.parseTrackToNoteObjects(track)).toEqual([
+  expect(parseTrackToNoteObjects(track)).toEqual([
     new TempoEvent(32),
     new TempoEvent(60),
   ])
@@ -24,5 +24,5 @@ test('deal with tie edge case', () => {
 
 test('converting back to string is working', () => {
   const track = 't32t60t120t240t255'
-  expect(functions.parseTrackToNoteObjects(track).join('')).toEqual(track)
+  expect(parseTrackToNoteObjects(track).join('')).toEqual(track)
 })

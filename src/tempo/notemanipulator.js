@@ -1,7 +1,4 @@
-import { parseTrackToNoteObjects }from './playback/playback'
-import RestEvent from './playback/RestEvent';
-import NoteEvent from './playback/NoteEvent';
-import MeasureDivisionEvent from './playback/MeasureDivisionEvent';
+import parseTrackToNoteObjects, { MeasureDivisionEvent, RestEvent, NoteEvent } from '../note-parser';
 
 export const halveTrackNotes = (track) => {
   const notes = parseTrackToNoteObjects(track)
@@ -9,6 +6,7 @@ export const halveTrackNotes = (track) => {
     if (notes[i] instanceof NoteEvent || notes[i] instanceof RestEvent || notes[i] instanceof MeasureDivisionEvent) {
       if (notes[i].value >= 64) throw new Error(`Note resolution failed at note ${notes[i]} in ...(${notes.slice(Math.max(i-1,0), Math.min(i+2, notes.length-1)).join('')})...! Reimport your MML track with lower quantization (i.e. 1/32)`)
       notes[i].value *= 2
+
     }
   }
   return notes.join('')

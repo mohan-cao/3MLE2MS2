@@ -1,9 +1,9 @@
 import RestEvent from './RestEvent'
-import * as functions from './playback'
+import parseTrackToNoteObjects from '.'
 
 test('parse rest notes', () => {
   const track = 'r1r1.r4r6r8r12r16r48r64r'
-  expect(functions.parseTrackToNoteObjects(track)).toEqual([
+  expect(parseTrackToNoteObjects(track)).toEqual([
     new RestEvent(1),
     new RestEvent(1, true),
     new RestEvent(4),
@@ -19,7 +19,7 @@ test('parse rest notes', () => {
 
 test('deal with tie edge case', () => {
   const track = 'r1&r1.'
-  expect(functions.parseTrackToNoteObjects(track)).toEqual([
+  expect(parseTrackToNoteObjects(track)).toEqual([
     new RestEvent(1),
     new RestEvent(1, true),
   ])
@@ -27,5 +27,5 @@ test('deal with tie edge case', () => {
 
 test('converting back to string is working', () => {
   const track = 'r1r1.r4r6r8r12r16r48r64r'
-  expect(functions.parseTrackToNoteObjects(track).join('')).toEqual(track)
+  expect(parseTrackToNoteObjects(track).join('')).toEqual(track)
 })

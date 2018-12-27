@@ -1,5 +1,5 @@
 import StatefulEvent from "./StatefulEvent";
-import { noteToSeconds } from "./playback";
+import { noteToSeconds } from ".";
 
 export default class RestEvent extends StatefulEvent {
   constructor(value, dotted=false) {

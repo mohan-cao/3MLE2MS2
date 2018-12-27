@@ -14,7 +14,7 @@ import './Form.css';
 import SynthesizerComponent from './Synthesiser';
 import { Button, Typography } from '@material-ui/core';
 import { Slider } from '@material-ui/lab';
-import { halveTrackNotes, doubleTrackNotes } from './tools/notemanipulator';
+import { halveTrackNotes, doubleTrackNotes } from './tempo/notemanipulator';
 
 const MMLHandler = (event, intermediate) => {
   let tracks = convert3MLEToTrackArray(event.target.result)

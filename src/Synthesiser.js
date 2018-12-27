@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import Tone from 'tone'
 
-import readTrack from './tools/playback/'
+import readTrack from './playback/'
+import { halveTrackNotes } from './tempo'
 import SampleLibrary, { defaultInstrument } from './tools/instrument'
 import PauseSymbol from './res/PauseIcon'
 import PlaySymbol from './res/PlayIcon'
@@ -11,7 +12,6 @@ import LoadingSymbol from './res/AudioIcon'
 import './Synthesiser.css'
 import { Button, Select, MenuItem, OutlinedInput, FormLabel } from '@material-ui/core'
 import { Slider } from '@material-ui/lab'
-import { halveTrackNotes } from './tools/notemanipulator';
 
 /**
  * The most awful component I've ever made.

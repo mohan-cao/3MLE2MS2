@@ -1,9 +1,9 @@
-import * as functions from './playback'
+import parseTrackToNoteObjects from '.'
 import NoteEvent from './NoteEvent'
 
 test('parse a-g notes', () => {
   const track = 'a1b2c3d4e6f8g12'
-  expect(functions.parseTrackToNoteObjects(track)).toEqual([
+  expect(parseTrackToNoteObjects(track)).toEqual([
     new NoteEvent('A', 1),
     new NoteEvent('B', 2),
     new NoteEvent('C', 3),
@@ -16,10 +16,10 @@ test('parse a-g notes', () => {
 
 test('parse accidentals', () => {
   const track = 'a+1b#2c-3d-4e#6f-8g+12'
-  expect(functions.parseTrackToNoteObjects(track)).toEqual([
+  expect(parseTrackToNoteObjects(track)).toEqual([
     new NoteEvent('A#', 1),
-    new NoteEvent('C', 2),
-    new NoteEvent('B', 3),
+    new NoteEvent('B#', 2),
+    new NoteEvent('Cb', 3),
     new NoteEvent('Db', 4),
     new NoteEvent('F', 6),
     new NoteEvent('E', 8),
@@ -29,5 +29,5 @@ test('parse accidentals', () => {
 
 test('converting back to string is working', () => {
   const track = 'a.bn60den65g'
-  expect(functions.parseTrackToNoteObjects(track).join('')).toEqual(track)
+  expect(parseTrackToNoteObjects(track).join('')).toEqual(track)
 })
