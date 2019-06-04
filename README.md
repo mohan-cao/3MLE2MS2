@@ -10,6 +10,9 @@
 Convert seamlessly between 3MLE Music Macro Language and MapleStory 2 MML formats from an easy-to-use web app.
 
 ## What does it do?
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/mohan-cao/3MLE2MS2.svg)](https://greenkeeper.io/)
+
 Converts between 3ML Extended Music Macro Language (3MLE MML) and MapleStory 2 MML. Nice! 
 Should be helpful for music enthusiasts and composers alike when copying your songs back and forth.
 
