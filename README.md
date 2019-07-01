@@ -6,12 +6,11 @@
 <a href="https://github.com/mohan-cao/3MLE2MS2/issues"><img style="display:inline-block;" src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat" alt="Contributions welcome"></a>
 <img style="display:inline-block;" src="http://hits.dwyl.io/mohan-cao/3MLE2MS2.svg" alt="Hit counter">
 <img style="display:inline-block;" src="https://img.shields.io/github/last-commit/mohan-cao/3mle2ms2.svg" alt="Last committed">
+<img style="display:inline-block;" src="https://badges.greenkeeper.io/mohan-cao/3MLE2MS2.svg" alt="Greenkeeper status">
 </div>
 Convert seamlessly between 3MLE Music Macro Language and MapleStory 2 MML formats from an easy-to-use web app.
 
 ## What does it do?
-
-[![Greenkeeper badge](https://badges.greenkeeper.io/mohan-cao/3MLE2MS2.svg)](https://greenkeeper.io/)
 
 Converts between 3ML Extended Music Macro Language (3MLE MML) and MapleStory 2 MML. Nice! 
 Should be helpful for music enthusiasts and composers alike when copying your songs back and forth.
