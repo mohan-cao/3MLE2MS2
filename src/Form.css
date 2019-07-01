@@ -4,6 +4,7 @@
   align-items: stretch;
   justify-content: space-between;
   color: black;
+  flex-wrap: wrap;
 }
 
 .Form-leftDiv .button {

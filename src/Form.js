@@ -129,7 +129,7 @@ export default class Form extends Component {
           </div>
           <div style={{ width: '50%', padding: 10 }}>
             <Typography style={{ marginBottom: 5 }}>Note length: {(scaleTrack > 1) ? 'Doubled' : (scaleTrack < 1) ? 'Halved' : '1-to-1'}</Typography>
-            <Slider value={scaleTrack} onChange={(e, value) => this.setState({ changed: (!!result), scaleTrack: value })} min={0} max={2} step={1} />
+            <Slider value={scaleTrack} style={{ textAlign: 'left' }} onChange={(e, value) => this.setState({ changed: (!!result), scaleTrack: value })} min={0} max={2} step={1} />
           </div>
           {
             (download) ? 
@@ -147,11 +147,11 @@ export default class Form extends Component {
           }
         </div>
         <div className="Form-rightDiv">
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
             <Typography variant="h1" style={{ marginRight: 20, fontSize: '2em' }}>Preview</Typography>
             { (mml && mml.length) ? <SynthesizerComponent tracks={mml} /> : <div /> }
           </div>
-          <textarea className="Form-textResult" value={result} readOnly />
+          <textarea style={{ minHeight: 200 }} className="Form-textResult" value={result} readOnly />
         </div>
       </form>
     )
