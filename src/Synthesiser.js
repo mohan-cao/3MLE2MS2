@@ -123,11 +123,11 @@ export default class SynthesizerComponent extends Component {
       <div style={{ display: 'inline-block', marginRight: 10 }}>
         <Slider
           color="secondary"
-          style={{ width: '4em' }}
+          style={{ width: '4em', textAlign: 'left' }}
           value={elapsedTime * multiplier}
           onChange={(e, val) => this.seek(val / multiplier)}
           disabled={disabled}
-          min={0} max={ (duration) ? duration * multiplier : 0 } step={ (divisions) ? divisions * multiplier : 0 } />
+          min={0} max={ (duration) ? duration * multiplier : 0 } step={ (divisions) ? divisions * multiplier : 1 } />
       </div>
     )
 
