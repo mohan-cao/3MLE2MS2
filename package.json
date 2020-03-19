@@ -19,7 +19,7 @@
     "fast-xml-parser": "^3.12.16",
     "file-saver": "^2.0.2",
     "he": "^1.2.0",
-    "react": "^16.8.6",
+    "react": "16.13.0",
     "react-dom": "^16.6.6",
     "react-scripts": "3.0.1",
     "tone": "13.4.9"
